@@ -204,7 +204,7 @@ const Layout: FC<Props> = (props: Props) => {
     <Fragment>
       <HotKeys handlers={keyHandlers} id="mainLayout" className={layout.mainLayout}>
         <Sidebar />
-        <div className={layout.container}>
+        <div className={cx(layout.container, { '@ns-dark': true })}>
           <TopNav toggleDocs={toggleDocs} onToggleEmulator={toggleEmulator} />
           <SplitPane
             split={'horizontal'}

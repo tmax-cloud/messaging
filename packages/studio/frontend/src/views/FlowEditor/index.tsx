@@ -12,7 +12,8 @@ import {
   refreshActions,
   refreshIntents,
   setDiagramAction,
-  switchFlow
+  switchFlow,
+  fetchFlows
 } from '~/src/actions'
 import { lang } from '~/src/components/Shared/translations'
 import { isInputFocused } from '~/src/components/Shared/utilities/inputs'
@@ -25,6 +26,8 @@ import Diagram from './diagram'
 import SidePanel, { PanelPermissions } from './explorer'
 import Inspector from './inspector'
 import * as style from './style.module.scss'
+
+import Diagram2 from './Diagram2'
 
 interface OwnProps {
   currentMutex: any
@@ -39,7 +42,7 @@ const searchTag = '#search:'
 
 const FlowEditor = (props: Props) => {
   const { flow } = props.match.params as any
-  const { currentFlowNode } = props
+  const { currentFlowNode, fetchFlows } = props
 
   let diagram: any = useRef(null)
   const [showSearch, setShowSearch] = useState(false)
@@ -47,6 +50,10 @@ const FlowEditor = (props: Props) => {
   const [mutex, setMutex] = useState<any>()
   const [actions, setActions] = useState(allActions)
   const [highlightFilter, setHighlightFilter] = useState<string>()
+
+  useEffect(() => {
+    fetchFlows()
+  }, [])
 
   useEffect(() => {
     props.refreshActions()
@@ -113,55 +120,10 @@ const FlowEditor = (props: Props) => {
 
   const pushFlowState = (flow) => props.history.push(`/flows/${flow.replace(/\.flow\.json/i, '')}`)
 
-  const keyHandlers = {
-    add: (e) => {
-      e.preventDefault()
-      props.setDiagramAction('insert_node')
-    },
-    undo: (e) => {
-      e.preventDefault()
-      props.flowEditorUndo()
-    },
-    redo: (e) => {
-      e.preventDefault()
-      props.flowEditorRedo()
-    },
-    find: (e) => {
-      e.preventDefault()
-      setShowSearch(!showSearch)
-    },
-    save: (e) => {
-      e.preventDefault()
-      toastInfo(lang.tr('studio.flow.nowSaveAuto'), Timeout.LONG)
-    },
-    delete: (e) => {
-      if (!isInputFocused()) {
-        e.preventDefault()
-        diagram?.deleteSelectedElements()
-      }
-    },
-    cancel: (e) => {
-      e.preventDefault()
-      props.closeFlowNodeProps()
-      setShowSearch(false)
-    }
-  }
-
-  const handleFilterChanged = ({ target: { value: highlightFilter } }) => {
-    const newUrl = props.location.pathname + searchTag + highlightFilter
-    setHighlightFilter(highlightFilter)
-    props.history.replace(newUrl)
-  }
-
-  const createFlow = (name) => {
-    diagram.createFlow(name)
-    props.switchFlow(`${name}.flow.json`)
-  }
-
   return (
     <div className={style.container}>
       <div className={style.diagram}>
-        <Diagram
+        {/* <Diagram
           readOnly={readOnly}
           showSearch={showSearch}
           hideSearch={() => setShowSearch(false)}
@@ -174,14 +136,14 @@ const FlowEditor = (props: Props) => {
               diagram = el.getWrappedInstance()
             }
           }}
-        />
+        /> */}
+        <Diagram2 />
       </div>
       <SidePanel
         onDeleteSelectedElements={() => diagram?.deleteSelectedElements()}
         readOnly={readOnly}
         mutexInfo={mutex}
         permissions={actions}
-        onCreateFlow={createFlow}
       />
       {currentFlowNode && <Inspector currentFlowNode={currentFlowNode} />}
     </div>
@@ -205,7 +167,8 @@ const mapDispatchToProps = {
   clearErrorSaveFlows,
   closeFlowNodeProps,
   refreshActions,
-  refreshIntents
+  refreshIntents,
+  fetchFlows
 }
 
 export default connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(withRouter(FlowEditor))

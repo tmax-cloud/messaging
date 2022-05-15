@@ -16,7 +16,7 @@ export type PanelPermissions = 'create' | 'rename' | 'delete'
 
 interface Props {
   flowsNames: string[]
-  onCreateFlow: (flowName: string) => void
+  onCreateFlow?: (flowName: string) => void
   flows: any
   deleteFlow: (flowName: string) => void
   renameFlow: any
@@ -37,7 +37,7 @@ const SidePanelContent: FC<Props> = ({
   dirtyFlows,
   currentFlow,
   flowsNames,
-  onCreateFlow
+  onCreateFlow = () => {}
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const [flowName, setFlowName] = useState<string>()
