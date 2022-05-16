@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { Handle, Position, WrapNodeProps } from 'react-flow-renderer'
 
 import { metaFromAction } from '../../utils/convertBotData'
-import * as style from './smooth-dark.module.scss'
+import * as style from './smooth.module.scss'
 import Tags from '~/src/components/Tags'
 
 interface StandardNodeData {
@@ -26,7 +26,7 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
   }
 
   return (
-    <div className={cx(style.nodeContainer, { selected, dragging })}>
+    <div className={cx(style.nodeContainer,  selected ? style.selected : null , dragging ? style.dragging : null )}>
       <div className={style.head}>
         <div className={style.port}>
           <div>

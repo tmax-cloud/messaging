@@ -18,19 +18,29 @@
   background-color: rgb(252, 252, 252);
   // background-color: white;
 
-  transition: box-shadow 150ms linear;
+  transition: all 100ms linear;
 
   @extend %shadow-sm;
 
   &:hover {
     // @extend %shadow-md;
-    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray2, 0px 1px 4px 0px bp.$gray5;
-    // transform: translateY(-2px);
+    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray2, 0px 1px 4px 0px rgba(bp.$gray1, 0.25);
   }
-
+  
   h4 {
     @extend %font-sm, %text-medium;
     margin: 4px;
+  }
+  
+  &.selected {
+    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4, 0px 1px 6px 0px rgba(bp.$gray1, 0.25);
+    // transform: translateY(-2px);
+    
+  }
+
+  &.dragging {
+    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4, 0px 4px 12px 0px rgba(bp.$gray1, 0.25);
+    transform: translateY(-2px);
   }
 
   // &:after {
@@ -86,7 +96,7 @@
   
   
   h2 {
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5, bp.$gray4);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
     
     margin: 0;
     padding: 4px 8px;
@@ -116,7 +126,7 @@
   background-color: white;
   align-items: center;
 
-  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5, bp.$gray4);
+  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
   
   &:hover {
     background-color: white;
@@ -127,27 +137,27 @@
   &-prompt {
     @extend .block;
     // background-color: rgba(bp.$rose5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose5, bp.$rose5);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose5);
   }
   
   &-simple {
     @extend .block;
     
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$green4, bp.$green4);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$green4);
   }
 
   &-code {
     @extend .block;
     
     // background-color: rgba(bp.$cobalt5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt5, bp.$cobalt5);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt5);
   }
 
   &-complex {
     @extend .block;
     
     // background-color: rgba(bp.$indigo5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo5, bp.$indigo5);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo5);
   }
 
 }
@@ -176,7 +186,7 @@
   @extend %font-md, %text-normal;
 
   // @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
-  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5, bp.$gray4);
+  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
 
   &:hover {
     transition: all 75ms linear;

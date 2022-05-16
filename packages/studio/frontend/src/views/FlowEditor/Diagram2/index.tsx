@@ -64,8 +64,8 @@ const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode }) => {
       <MiniMap />
       <Controls />
       {/* If you want to try the dark diagram */}
-      <Background color="#394B59" style={{backgroundColor: '#0E1116'}}/>
-      {/* <Background /> */}
+      {/* <Background color="#394B59" style={{backgroundColor: '#0E1116'}}/> */}
+      <Background />
     </ReactFlow>
   )
 }
