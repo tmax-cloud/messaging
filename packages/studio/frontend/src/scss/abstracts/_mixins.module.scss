@@ -1,0 +1,21 @@
+@use '~/src/scss/vendor/index.module' as bp;
+
+@mixin block-shadow($height, $transform, $border-color, $hover-color) {
+  transition: all 75ms linear;
+  box-shadow: 0px 1px 0px $border-color;
+  border: 1px solid $border-color;
+  // background-color: rgba($hover-color, 0.4);
+
+  &:hover {
+    box-shadow: 0px $height 0px $hover-color;
+    transition: all 75ms linear;
+    transform: translateY(-$transform);
+    border-color: $hover-color;
+  }
+
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
+}
