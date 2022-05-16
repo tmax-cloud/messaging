@@ -1,17 +1,9 @@
-import React, { useState, useCallback, FC, useEffect } from 'react'
-import ReactFlow, {
-  addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
-  MiniMap,
-  Controls,
-  Background
-} from 'react-flow-renderer'
-import { withRouter } from 'react-router-dom'
+import React, { FC, useState, useEffect } from 'react'
+import ReactFlow, { useReactFlow, MiniMap, Controls, Background } from 'react-flow-renderer'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import shallow from 'zustand/shallow'
 
-import NodeTypes from './NodeTypes'
-import { getCurrentFlow, getCurrentFlowNode, RootReducer } from '../../../reducers'
 import {
   switchFlowNode,
   createFlowNode,
@@ -22,61 +14,52 @@ import {
   pasteFlowNode,
   refreshFlowsLinks
 } from '~/src/actions'
-
-const initialNodes = [
-  {
-    id: '1',
-    type: 'standard',
-    data: { name: 'Input Node' },
-    position: { x: 150, y: 25 }
-  },
-
-  {
-    id: '2',
-    // you can also pass a React component as a label
-    data: { label: <div>Default Node</div> },
-    position: { x: 300, y: 125 }
-  },
-  {
-    id: '3',
-    type: 'standard',
-    data: { name: 'Input Node' },
-    position: { x: 150, y: 250 }
-  }
-]
-
-const initialEdges = []
+import { getCurrentFlow, getCurrentFlowNode, RootReducer } from '../../../reducers'
+import { toRFlow } from '../utils/convertBotData'
+import NodeTypes from './NodeTypes'
+import useDiagramStore from './store'
 
 interface OwnProps {}
 
 const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode }) => {
-  const [nodes, setNodes] = useState(initialNodes)
-  const [edges, setEdges] = useState(initialEdges)
-  const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes])
-  const onEdgesChange = useCallback(
-    (changes) => {
-      console.log(changes)
-      return setEdges((eds) => applyEdgeChanges(changes, eds))
-    },
-    [setEdges]
+  const [lastFlow, setLastFlow] = useState('')
+  const reactFlow = useReactFlow()
+  const [nodes, edges, flowName, updateNodes, updateEdges, addEdge, setFlow] = useDiagramStore(
+    (state) => [
+      state.nodes,
+      state.edges,
+      state.flowName,
+      state.updateNodes,
+      state.updateEdges,
+      state.addEdge,
+      state.setFlow
+    ],
+    shallow
   )
-  const onConnect = useCallback((connection) => setEdges((eds) => addEdge(connection, eds)), [setEdges])
 
   useEffect(() => {
-    console.log(currentFlow)
+    console.log(nodes, edges)
+    reactFlow.fitView({ padding: 1.25, duration: 500 })
+  }, [nodes, edges])
+
+  useEffect(() => {
+    console.log('wat')
+    if (currentFlow) {
+      setFlow(currentFlow.name, toRFlow(currentFlow))
+    }
   }, [currentFlow])
 
   return (
     <ReactFlow
       nodes={nodes}
       edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
+      onNodesChange={updateNodes}
+      onEdgesChange={updateEdges}
+      onConnect={addEdge}
       nodeTypes={NodeTypes}
+      maxZoom={4}
       // we should pay for react-flow at least at the lowsest level to remove attribution, it's still MIT license but karma
       proOptions={{ account: 'paid-pro', hideAttribution: true }}
-      fitView
     >
       <MiniMap />
       <Controls />

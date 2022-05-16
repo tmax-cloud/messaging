@@ -1,6 +1,7 @@
 import { FlowView } from '@botpress/common'
 import _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
+import { ReactFlowProvider } from 'react-flow-renderer'
 
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
@@ -16,18 +17,15 @@ import {
   fetchFlows
 } from '~/src/actions'
 import { lang } from '~/src/components/Shared/translations'
-import { isInputFocused } from '~/src/components/Shared/utilities/inputs'
 import { inspect } from '~/src/components/Shared/utilities/inspect'
-import { Timeout, toastFailure, toastInfo } from '~/src/components/Shared/Utils'
+import { Timeout, toastFailure } from '~/src/components/Shared/Utils'
 import { isOperationAllowed } from '~/src/components/Shared/Utils/AccessControl'
 import { RootReducer, getCurrentFlowNode } from '~/src/reducers'
 
-import Diagram from './diagram'
+import Diagram2 from './Diagram2'
 import SidePanel, { PanelPermissions } from './explorer'
 import Inspector from './inspector'
 import * as style from './style.module.scss'
-
-import Diagram2 from './Diagram2'
 
 interface OwnProps {
   currentMutex: any
@@ -44,7 +42,7 @@ const FlowEditor = (props: Props) => {
   const { flow } = props.match.params as any
   const { currentFlowNode, fetchFlows } = props
 
-  let diagram: any = useRef(null)
+  const diagram: any = useRef(null)
   const [showSearch, setShowSearch] = useState(false)
   const [readOnly, setReadOnly] = useState(false)
   const [mutex, setMutex] = useState<any>()
@@ -137,7 +135,9 @@ const FlowEditor = (props: Props) => {
             }
           }}
         /> */}
-        <Diagram2 />
+        <ReactFlowProvider>
+          <Diagram2 />
+        </ReactFlowProvider>
       </div>
       <SidePanel
         onDeleteSelectedElements={() => diagram?.deleteSelectedElements()}
