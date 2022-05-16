@@ -1,56 +1,41 @@
-import create from 'zustand'
-import ReactFlow, {
-  Node
+import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  Node,
+  Edge,
+  NodeChange,
+  EdgeChange,
+  Connection
 } from 'react-flow-renderer'
+import create from 'zustand'
 
 interface FlowEditorStore {
-  nodes: 
+  flowName: string
+  nodes: Node[]
+  edges: Edge[]
+  updateNodes: (changes: NodeChange[]) => void
+  updateEdges: (changes: EdgeChange[]) => void
+  addEdge: (connection: Connection) => void
+  setFlow: (newName: string, newFlow: { nodes: Node[]; edges: Edge[] }) => void
 }
 
-const useDiagramStore = create<any>((set, get) => ({
+const useDiagramStore = create<FlowEditorStore>((set, get) => ({
   // Flow
+  flowName: '',
   nodes: [],
   edges: [],
-  updateNodes: (changes) => set((state) => ({nodes: applyNodeChanges(changes, state.nodes)})),
-  updateEdges:,
-  addEdge:
-  // Flow Node
-  currentNode
-  setCurrentNode
-  //
-  tabs: [],
-  activeTabIdx: -1,
-  openTabId: (id) => {
-    const { tabs } = get()
-    const existingTab = tabs.indexOf(id)
-
-    if (existingTab === -1) {
-      set((state) => ({ tabs: [id, ...state.tabs], activeTabIdx: 0 }))
-    } else {
-      set((state) => ({ activeTabIdx: existingTab }))
-    }
+  updateNodes: (changes) => set((state) => ({ nodes: applyNodeChanges(changes, state.nodes) })),
+  updateEdges: (changes) => set((state) => ({ edges: applyEdgeChanges(changes, state.edges) })),
+  addEdge: (connection) => set((state) => ({ edges: addEdge(connection, state.edges) })),
+  setFlow: (newName, newFlow) => {
+    set(() => ({ flowName: newName, ...newFlow }))
   },
-  changeTab: (idx) => set(() => ({ activeTabIdx: idx })),
-  closeTabIdx: (idx) =>
-    set((state) => ({ tabs: state.tabs.filter((_, i) => i !== idx), activeTabIdx: state.activeTabIdx - 1 })),
-
+  // Flow Node
+  // currentNode
+  // setCurrentNode
   // Reset Diagram
-  resetDiagram: () => set(() => ({}))
+  resetDiagram: () => set(() => ({ nodes: [], edges: [] }))
 }))
 
 export default useDiagramStore
-
-// const [nodes, setNodes] = useState(initialNodes)
-// const [edges, setEdges] = useState(initialEdges)
-// const onNodesChange = useCallback((changes) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes])
-// const onEdgesChange = useCallback(
-//   (changes) => {
-//     console.log(changes)
-//     return setEdges((eds) => applyEdgeChanges(changes, eds))
-//   },
-//   [setEdges]
-// )
-// const onConnect = useCallback((connection) => setEdges((eds) => addEdge(connection, eds)), [setEdges])

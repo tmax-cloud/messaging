@@ -2,8 +2,8 @@ import StandardNode from './StandardNode'
 
 const NodeTypes = {
   standard: StandardNode,
-  'skill-call': null,
-  entry: null
+  'skill-call': StandardNode,
+  entry: StandardNode
 }
 
 export default NodeTypes

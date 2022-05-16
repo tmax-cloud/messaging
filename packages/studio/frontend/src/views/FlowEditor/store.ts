@@ -1,43 +1,43 @@
-// import create from 'zustand'
+import create from 'zustand'
 
-// interface FlowEditorStore {
-//   tabs: string[]
-//   activeTabIdx: number
-//   openTabId: (id: string) => void
-//   changeTab: (idx: number) => void
-//   closeTabIdx: (idx: number) => void
-//   resetInspector: () => void
-// }
+interface FlowEditorStore {
+  tabs: string[]
+  activeTabIdx: number
+  openTabId: (id: string) => void
+  changeTab: (idx: number) => void
+  closeTabIdx: (idx: number) => void
+  resetInspector: () => void
+}
 
-// const useFlowEditorStore = create<any>((set, get) => ({
-//   // Flow
-//   nodes,
-//   edges,
-//   // Flow Node
-//   currentNode
-//   setCurrentNode
-//   //
-//   tabs: [],
-//   activeTabIdx: -1,
-//   openTabId: (id) => {
-//     const { tabs } = get()
-//     const existingTab = tabs.indexOf(id)
+const useFlowEditorStore = create<any>((set, get) => ({
+  // Flow
+  nodes,
+  edges,
+  // Flow Node
+  currentNode
+  setCurrentNode
+  //
+  tabs: [],
+  activeTabIdx: -1,
+  openTabId: (id) => {
+    const { tabs } = get()
+    const existingTab = tabs.indexOf(id)
 
-//     if (existingTab === -1) {
-//       set((state) => ({ tabs: [id, ...state.tabs], activeTabIdx: 0 }))
-//     } else {
-//       set((state) => ({ activeTabIdx: existingTab }))
-//     }
-//   },
-//   changeTab: (idx) => set(() => ({ activeTabIdx: idx })),
-//   closeTabIdx: (idx) =>
-//     set((state) => ({ tabs: state.tabs.filter((_, i) => i !== idx), activeTabIdx: state.activeTabIdx - 1 })),
+    if (existingTab === -1) {
+      set((state) => ({ tabs: [id, ...state.tabs], activeTabIdx: 0 }))
+    } else {
+      set((state) => ({ activeTabIdx: existingTab }))
+    }
+  },
+  changeTab: (idx) => set(() => ({ activeTabIdx: idx })),
+  closeTabIdx: (idx) =>
+    set((state) => ({ tabs: state.tabs.filter((_, i) => i !== idx), activeTabIdx: state.activeTabIdx - 1 })),
 
-//   // Reset Flow Editor
-//   resetFlowEditor: () => set(() => ({}))
-// }))
+  // Reset Flow Editor
+  resetFlowEditor: () => set(() => ({}))
+}))
 
-// export default useFlowEditorStore
+export default useFlowEditorStore
 
 // const initialNodes = [
 //   {
