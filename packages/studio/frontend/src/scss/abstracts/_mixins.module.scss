@@ -15,6 +15,20 @@
 
 }
 
+@mixin block-shadow-smooth($height, $transform, $border-color) {
+  transition: all 75ms linear;
+  box-shadow: 0px 1px 0px $border-color, 0px -1px 1px 0px $border-color inset;
+  border: 1px solid $border-color;
+
+  &:hover {
+    box-shadow: 0px $height 0px $border-color, 0px -1px 1px $border-color inset;
+    transition: all 75ms linear;
+    transform: translateY(-$transform);
+    border: 1px solid $border-color;
+  }
+
+}
+
 @mixin background-opacity($color, $opacity: 0.3) {
     background: $color; /* The Fallback */
     background: rgba($color, $opacity);

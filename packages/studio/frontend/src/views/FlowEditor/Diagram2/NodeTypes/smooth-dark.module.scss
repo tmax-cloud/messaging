@@ -1,0 +1,195 @@
+@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/base/index.module' as base;
+@use '~/src/scss/vendor/index.module' as bp;
+
+.nodeContainer {
+  // @include abstracts.block-shadow(2px, 1px, bp.$light-gray2, bp.$light-gray2);
+  box-shadow: 0px -1px 0px 0px bp.$gray4, 0px 1px 0px 0px bp.$gray4, 0px 1px 2px 0px bp.$gray5;
+  // border: 1px solid bp.$gray4;
+  width: 275px;
+  min-height: min-content;
+  display: flex;
+  flex-direction: column;
+  // row-gap:6px;
+
+  padding: 6px 0;
+  padding-top: 12px;
+  border-radius: 8px;
+  background-color: bp.$dark-gray3;
+  color: bp.$gray3;
+  // background-color: white;
+
+  transition: box-shadow 150ms linear;
+
+  @extend %shadow-sm;
+
+  &:hover {
+    // @extend %shadow-md;
+    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray2, 0px 1px 4px 0px bp.$gray5;
+    // transform: translateY(-2px);
+  }
+
+  h4 {
+    @extend %font-sm, %text-medium;
+    margin: 4px;
+  }
+
+  // &:after {
+  //   content: "";
+  //   display: block;
+  //   box-sizing: border-box;
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  //   height: 4px;
+  //   background-color: bp.$gray5;
+  //   width: 100%;
+  // }
+  
+}
+
+.head {
+  
+}
+
+.content {
+  padding: 4px;
+  margin: 6px;
+  margin-top: 12px;
+  border-radius: 6px;
+  display:flex;
+  flex-direction: column;
+  row-gap:6px;
+  background-color: bp.$dark-gray2;
+  // border: 1px solid bp.$gray5;
+  // @extend %shadow-inner;
+  // box-shadow: 1px 2px 0px 0px bp.$gray4 inset, -1px 2px 0px 0px bp.$gray4 inset;
+  box-shadow: 1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, -1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, 0px 0px 1px 0px rgba(bp.$dark-gray1, 1);
+}
+
+.footer {
+  padding-left: 6px;
+}
+
+.port {
+  position: relative;
+  padding: 4px;
+  padding-left: 8px;
+  background-color: bp.$dark-gray2;
+  width: fit-content;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0px 2px 0px 0px bp.$gray4 inset;
+  margin-top: 0;
+  // border: 1px solid bp.$gray5;
+  border-left: none;
+
+  box-shadow: -1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, 0px 0px 1px 0px rgba(bp.$dark-gray1, 1);
+  
+  
+  h2 {
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$dark-gray1);
+    
+    margin: 0;
+    padding: 4px 8px;
+    background-color: bp.$dark-gray3;
+    border-radius: 6px;
+
+    @extend %font-lg, %text-medium;
+  }
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.block {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  color: bp.$gray4;
+  background-color: bp.$dark-gray4;
+  align-items: center;
+
+  @include abstracts.block-shadow-smooth(2px, 1px, bp.$dark-gray1);
+  
+  &:hover {
+    background-color: bp.$dark-gray5;
+  }
+
+  @extend %font-sm, %text-normal;
+
+  &-prompt {
+    @extend .block;
+    // background-color: rgba(bp.$rose5, 0.2);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose5);
+  }
+  
+  &-simple {
+    @extend .block;
+    
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$green2);
+    &:hover {
+      // color: black;
+      @include abstracts.block-shadow-smooth(2px, 1px, bp.$green3);
+      background-color: bp.$dark-gray5;
+    }
+  }
+
+  &-code {
+    @extend .block;
+    
+    // background-color: rgba(bp.$cobalt5, 0.2);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt5);
+  }
+
+  &-complex {
+    @extend .block;
+    
+    // background-color: rgba(bp.$indigo5, 0.2);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo5);
+  }
+
+}
+
+.transitions {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  background-color: bp.$dark-gray2;
+  padding: 4px;
+  padding-right: 8px;
+  right: 0;
+  width: 100%;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, 0px 0px 1px 0px rgba(bp.$dark-gray1, 1);
+  // border: 1px solid bp.$gray5;
+  border-right: none;
+  color: bp.$gray4;
+}
+
+.transition {
+  width: 100%;
+  background-color: bp.$dark-gray4;
+  padding: 4px 12px;
+  border-radius: 6px;
+  
+  @extend %font-md, %text-normal;
+
+  // @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
+  @include abstracts.block-shadow-smooth(2px, 1px, bp.$dark-gray1);
+
+  &:hover {
+    transition: all 75ms linear;
+    background-color: bp.$dark-gray5;
+    // transform: translateY(-1px);
+    
+  }
+}

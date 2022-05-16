@@ -4,7 +4,8 @@ import React, { FC } from 'react'
 import { Handle, Position, WrapNodeProps } from 'react-flow-renderer'
 
 import { metaFromAction } from '../../utils/convertBotData'
-import * as style from './style.module.scss'
+import * as style from './smooth-dark.module.scss'
+import Tags from '~/src/components/Tags'
 
 interface StandardNodeData {
   name: string
@@ -20,6 +21,7 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
   const getType = (action) => {
     if (action.includes('say #!builtin_text')) return style['block-simple']
     else if (action.includes('say #!builtin_carousel')) return style['block-complex']
+    else if (action.includes('builtin/setVariable')) return style['block-code']
     return style.block
   }
 
@@ -40,7 +42,10 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
             <h4>On Enter</h4>
             <div className={style.blocks}>
               {onEnter.map((action) => (
-                <div className={getType(action)}>{metaFromAction(action).action}</div>
+                <div className={getType(action)}>
+                  <Tags icon="Text" type="simple" text/>
+                  <span>{metaFromAction(action).action}</span>
+                </div>
               ))}
             </div>
           </>
@@ -50,7 +55,10 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
             <h4>On Receive</h4>
             <div className={style.blocks}>
               {onReceive.map((action) => (
-                <div className={style.block}>{metaFromAction(action).action}</div>
+                <div className={style.block}>
+                  <div>[]</div>
+                  <span>{metaFromAction(action).action}</span>
+                </div>
               ))}
             </div>
           </>

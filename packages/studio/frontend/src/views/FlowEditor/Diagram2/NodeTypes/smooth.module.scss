@@ -4,11 +4,10 @@
 
 .nodeContainer {
   // @include abstracts.block-shadow(2px, 1px, bp.$light-gray2, bp.$light-gray2);
-  box-shadow: 0px 0px 0px 1px bp.$gray5;
+  box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4, 0px 1px 2px 0px bp.$gray5;
   // border: 1px solid bp.$gray4;
   width: 275px;
-  min-height: 250px;
-
+  min-height: min-content;
   display: flex;
   flex-direction: column;
   // row-gap:6px;
@@ -16,7 +15,8 @@
   padding: 6px 0;
   padding-top: 12px;
   border-radius: 8px;
-  background-color: white;
+  background-color: rgb(252, 252, 252);
+  // background-color: white;
 
   transition: box-shadow 150ms linear;
 
@@ -24,12 +24,13 @@
 
   &:hover {
     // @extend %shadow-md;
-    box-shadow: 0px 0px 1px 1px bp.$gray4;
+    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray2, 0px 1px 4px 0px bp.$gray5;
     // transform: translateY(-2px);
   }
 
   h4 {
     @extend %font-sm, %text-medium;
+    margin: 4px;
   }
 
   // &:after {
@@ -40,7 +41,7 @@
   //   left: 0;
   //   top: 0;
   //   height: 4px;
-  //   background-color: bp.$dark-gray2;
+  //   background-color: bp.$gray5;
   //   width: 100%;
   // }
   
@@ -51,14 +52,18 @@
 }
 
 .content {
-  padding: 6px;
+  padding: 4px;
   margin: 6px;
   margin-top: 12px;
   border-radius: 6px;
+  display:flex;
+  flex-direction: column;
+  row-gap:6px;
   background-color: bp.$light-gray4;
-  border: 1px solid bp.$gray5;
+  // border: 1px solid bp.$gray5;
   // @extend %shadow-inner;
-  box-shadow: 1px 2px 0px 0px bp.$gray4 inset, -1px 2px 0px 0px bp.$gray4 inset;
+  // box-shadow: 1px 2px 0px 0px bp.$gray4 inset, -1px 2px 0px 0px bp.$gray4 inset;
+  box-shadow: 1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset, -1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset, 0px 0px 1px 0px rgba(bp.$gray5, 1);
 }
 
 .footer {
@@ -67,24 +72,27 @@
 
 .port {
   position: relative;
-  left: -1px;
-  padding: 6px;
+  padding: 4px;
+  padding-left: 6px;
   background-color: bp.$light-gray4;
   width: fit-content;
   border-radius: 0 8px 8px 0;
   box-shadow: 0px 2px 0px 0px bp.$gray4 inset;
   margin-top: 0;
-  border: 1px solid bp.$gray5;
+  // border: 1px solid bp.$gray5;
   border-left: none;
+
+  box-shadow: -1px 2px 1px 0px rgba(bp.$gray4, 0.5) inset, 0px 0px 1px 0px rgba(bp.$gray5, 1);
   
   
   h2 {
-    @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5, bp.$gray4);
     
     margin: 0;
     padding: 4px 8px;
     background-color: white;
     border-radius: 6px;
+
     @extend %font-lg, %text-medium;
   }
 }
@@ -93,7 +101,7 @@
   display: flex;
   flex-direction: column;
   row-gap: 6px;
-  
+  align-items: center;
   border-radius: 8px;
 }
 
@@ -102,43 +110,44 @@
   flex-direction: row;
   column-gap: 8px;
   width: 100%;
-  padding: 4px;
+  padding: 6px;
   border-radius: 6px;
-  color: bp.$dark-gray2;
+  color: bp.$dark-gray4;
   background-color: white;
+  align-items: center;
+
+  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5, bp.$gray4);
   
   &:hover {
     background-color: white;
   }
 
-  @extend %font-md, %text-normal;
+  @extend %font-sm, %text-normal;
 
   &-prompt {
     @extend .block;
-    
     // background-color: rgba(bp.$rose5, 0.2);
-    @include abstracts.block-shadow(2px, 1px, bp.$rose5, bp.$rose5);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose5, bp.$rose5);
   }
   
   &-simple {
     @extend .block;
     
-    // background-color: rgba(bp.$green5, 0.2);
-    @include abstracts.block-shadow(2px, 1px, bp.$green5, bp.$green5);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$green4, bp.$green4);
   }
 
   &-code {
     @extend .block;
     
     // background-color: rgba(bp.$cobalt5, 0.2);
-    @include abstracts.block-shadow(2px, 1px, bp.$cobalt5, bp.$cobalt5);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt5, bp.$cobalt5);
   }
 
   &-complex {
     @extend .block;
     
     // background-color: rgba(bp.$indigo5, 0.2);
-    @include abstracts.block-shadow(2px, 1px, bp.$indigo5, bp.$indigo5);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo5, bp.$indigo5);
   }
 
 }
@@ -149,12 +158,12 @@
   flex-direction: column;
   row-gap: 6px;
   background-color: bp.$light-gray4;
-  padding: 6px;
+  padding: 4px;
   right: 0;
-  width: calc(100% + 1px);
+  width: 100%;
   border-radius: 8px 0 0 8px;
-  box-shadow: 1px 2px 0px 0px bp.$gray4 inset;
-  border: 1px solid bp.$gray5;
+  box-shadow: 1px 2px 1px 0px rgba(bp.$gray4, 0.5) inset, 0px 0px 1px 0px rgba(bp.$gray5, 1);
+  // border: 1px solid bp.$gray5;
   border-right: none;
 }
 
@@ -166,7 +175,8 @@
   
   @extend %font-md, %text-normal;
 
-  @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
+  // @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
+  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5, bp.$gray4);
 
   &:hover {
     transition: all 75ms linear;
