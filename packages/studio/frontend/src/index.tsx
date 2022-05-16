@@ -7,6 +7,7 @@ import { HotKeys } from 'react-hotkeys'
 import { Provider } from 'react-redux'
 
 import './style.scss'
+import './scss/style.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import '@projectstorm/react-diagrams/dist/style.min.css'
 import './theme.scss'

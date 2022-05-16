@@ -17,14 +17,18 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
   return (
     <div className={style.nodeContainer}>
       <Handle type="target" position={Position.Left} />
-      <h2>title</h2>
+      <h2>node_name</h2>
       <h4>On Enter</h4>
       <div className={style.blocks}>
-        <div className={style.block}></div>
+        <div className={style.block}>asd</div>
+        <div className={style.block}>asd</div>
+        <div className={style.block}>asd</div>
       </div>
       <h4>On Receive</h4>
       <div className={style.blocks}>
-        <div className={style.block}></div>
+        <div className={style.block}>fasdf</div>
+        <div className={style.block}>asd</div>
+        <div className={style.block}>asd</div>
       </div>
       <h4>Transitions</h4>
       <div className={style.transitions}>

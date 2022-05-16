@@ -1,12 +1,92 @@
-%shadow-sm {
-  box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 1px 2px 0px rgba(33, 37, 41, 0.12);
-}
+@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/base/index.module' as base;
+@use '~/src/scss/vendor/index.module' as bp;
 
 .nodeContainer {
-  @extend %shadow-sm;
+  width: 300px;
+  min-height: 250px;
+
   display: flex;
   flex-direction: column;
+  row-gap:6px;
+
   padding: 12px;
   border-radius: 8px;
-  background-color: blue;
+  background-color: white;
+
+  transition: box-shadow 150ms linear;
+
+  @extend %shadow-sm;
+
+  &:hover {
+    @extend %shadow-md;
+    // transform: translateY(-2px);
+  }
+
+  h2 {
+    @extend %font-lg, %text-medium;
+  }
+
+  h4 {
+    @extend %font-sm, %text-medium;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 4px;
+    background-color: bp.$dark-gray2;
+    width: 100%;
+  }
+  
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+}
+
+.block {
+  width: 100%;
+  border: 1px solid bp.$light-gray3;
+  padding: 8px 12px;
+  border-radius: 6px;
+  
+  @extend %font-md, %text-normal;
+
+  &:hover {
+    transition: all 75ms linear;
+    
+    // transform: translateY(-1px);
+    @extend %shadow-sm;
+  }
+
+}
+
+.transitions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+
+}
+
+.transition {
+  width: 100%;
+  background-color: bp.$light-gray4;
+  padding: 8px 12px;
+  border-radius: 6px;
+  
+  @extend %font-md, %text-normal;
+
+  &:hover {
+    transition: all 75ms linear;
+    background-color: bp.$light-gray3;
+    // transform: translateY(-1px);
+    
+  }
 }
