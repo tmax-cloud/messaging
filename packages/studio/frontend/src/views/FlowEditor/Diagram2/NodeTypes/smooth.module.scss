@@ -7,29 +7,23 @@
 }
 
 .nodeContainer {
-  // @include abstracts.block-shadow(2px, 1px, bp.$light-gray2, bp.$light-gray2);
-  box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4, 0px 1px 2px 0px bp.$gray5;
-  // border: 1px solid bp.$gray4;
-  width: 275px;
-  min-height: min-content;
   display: flex;
   flex-direction: column;
-  outline: white solid 0px;
-  // row-gap:6px;
+  width: 275px;
+  min-height: min-content;
 
   padding: 6px 0;
   padding-top: 12px;
   border-radius: 8px;
-  background-color: rgb(252, 252, 252);
-  // background-color: white;
+  background-color: white;
 
+  outline: white solid 0px;
   transition: all 100ms linear;
 
-  @extend %shadow-sm;
+  @extend %shadow-edge-xs;
 
   &:hover {
-    // @extend %shadow-md;
-    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray2, 0px 1px 4px 0px rgba(bp.$gray1, 0.25);
+    @extend %shadow-edge-sm;
   }
 
   h4 {
@@ -40,8 +34,7 @@
   }
 
   &.selected {
-    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4, 0px 1px 6px 0px rgba(bp.$gray1, 0.25);
-    // transform: translateY(-2px);
+    @extend %shadow-md;
     &:after {
       background-color: bp.$cobalt4;
     }
@@ -49,22 +42,9 @@
   }
 
   &.dragging {
-    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4,
-      0px 4px 12px 0px rgba(bp.$gray1, 0.25);
+    @extend %shadow-lg;
     transform: translateY(-2px);
   }
-
-  // &:after {
-  //   content: "";
-  //   display: block;
-  //   box-sizing: border-box;
-  //   position: absolute;
-  //   left: 0;
-  //   top: 0;
-  //   height: 4px;
-  //   background-color: bp.$gray5;
-  //   width: 100%;
-  // }\
 }
 
 .head {
@@ -91,11 +71,7 @@
   flex-direction: column;
   row-gap: 6px;
   background-color: bp.$light-gray4;
-  // border: 1px solid bp.$gray5;
-  // @extend %shadow-inner;
-  // box-shadow: 1px 2px 0px 0px bp.$gray4 inset, -1px 2px 0px 0px bp.$gray4 inset;
-  box-shadow: 1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset, -1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset,
-    0px 0px 1px 0px rgba(bp.$gray5, 1);
+  @extend %shadow-inner-2;
 }
 
 .footer {

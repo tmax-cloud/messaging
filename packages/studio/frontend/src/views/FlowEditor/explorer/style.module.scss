@@ -1,36 +1,79 @@
 // @import '../../../palette.scss';
+@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/base/index.module' as base;
+@use '~/src/scss/vendor/index.module' as bp;
 
 .container {
   position: absolute;
   display: flex;
   flex-direction: column;
+  row-gap: 6px;
   width: 250px;
-  padding: 4.32px;
+  // padding: 6px;
   background-color: white;
-  box-shadow: 0px 0px 1px rgba(33, 37, 41, 0.08), 0px 0px 1px 1px white, 0px 2px 20px -6px rgba(33, 37, 41, 0.15);
   border-radius: 8px;
+
   z-index: 50;
+  margin: 10px;
+  @extend %shadow-edge-sm;
 }
 
-.section {
-  width: 100%;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
+.head {
+  @extend %flex-column;
+
+  padding: 8px;
+  background: white;
+  border-radius: 6px;
 }
 
-.sectionOutset {
-  @extend .section;
-
-  background: #ffffff;
-  box-shadow: 0px 2px 20px -6px rgba(33, 37, 41, 0.08), 0px 0px 1px rgba(33, 37, 41, 0.08);
-  border-radius: 8px;
+.insetSection {
+  @extend %flex-column, %shadow-inner-2;
+  margin: 6px;
+  min-height: 200px;
+  background: bp.$light-gray5;
+  border-radius: 6px;
 }
 
-.sectionInset {
-  @extend .section;
+.navEl {
+  @extend %font-lg, %text-medium, %transition-all-75;
+  color: bp.$gray3;
+  cursor: pointer;
+  user-select: none;
 
-  background: #f7f7f9;
-  box-shadow: inset 0px 0px 6px -1px rgba(33, 37, 41, 0.15);
-  border-radius: 8px;
+  &:hover {
+    color: bp.$gray2;
+  }
+
+  &-selected {
+    @extend .navEl;
+    color: bp.$dark-gray2;
+    &:hover {
+      color: bp.$gray1;
+    }
+  }
+}
+
+.nav {
+  @extend %flex-row;
+  column-gap: 8px;
+}
+
+.search {
+  @extend %font-sm, %text-normal, %transition-all-50, %shadow-inner;
+  border-radius: 6px;
+  border: 0px;
+  padding: 6px 8px;
+  outline: 0;
+  background-color: bp.$light-gray4;
+
+  &::placeholder {
+    font-style: italic;
+    color: bp.$gray3;
+    user-select: none;
+  }
+
+  &:focus {
+    outline-offset: 0px;
+    outline: 1px solid bp.$cobalt4;
+  }
 }
