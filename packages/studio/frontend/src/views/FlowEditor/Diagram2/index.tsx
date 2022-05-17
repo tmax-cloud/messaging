@@ -16,6 +16,7 @@ import {
 } from '~/src/actions'
 import { getCurrentFlow, getCurrentFlowNode, RootReducer } from '../../../reducers'
 import { toRFlow } from '../utils/convertBotData'
+import CustomEdge from './CustomEdge'
 import NodeTypes from './NodeTypes'
 import useDiagramStore from './store'
 
@@ -39,13 +40,13 @@ const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode }) => {
 
   // useEffect(() => {
   //   console.log(nodes, edges)
-  //   reactFlow.fitView({ padding: 1.25, duration: 500 })
+
   // }, [nodes, edges])
 
   useEffect(() => {
-    console.log('wat')
     if (currentFlow) {
       setFlow(currentFlow.name, toRFlow(currentFlow))
+      setTimeout(() => reactFlow.fitView({ padding: 1.25, duration: 500 }), 0)
     }
   }, [currentFlow])
 
@@ -57,6 +58,7 @@ const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode }) => {
       onEdgesChange={updateEdges}
       onConnect={addEdge}
       nodeTypes={NodeTypes}
+      edgeTypes={CustomEdge}
       maxZoom={4}
       // we should pay for react-flow at least at the lowsest level to remove attribution, it's still MIT license but karma
       proOptions={{ account: 'paid-pro', hideAttribution: true }}

@@ -20,13 +20,18 @@ export type OwnProps = WrapNodeProps<StandardNodeData>
 
 const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter, onReceive, next } }) => {
   return (
-    <div className={cx(style.nodeContainer, selected ? style.selected : null, dragging ? style.dragging : null)}>
+    <div
+      className={cx(
+        style.nodeContainer,
+        selected ? style.selected : null,
+        dragging ? style.dragging : null,
+        'flow-node-body'
+      )}
+    >
       <div className={style.head}>
-        <div className={style.port}>
-          <div>
-            <h2>{name}</h2>
-            <Handle type="target" position={Position.Left} />
-          </div>
+        <div className={cx(style.port, 'nodrag')}>
+          <Handle type="target" position={Position.Left} />
+          <h2 className={selected ? style.selected : null}>{name}</h2>
         </div>
         <Icon icon="help" color={style.tipColor} />
       </div>
@@ -36,7 +41,7 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
           <>
             <h4>On Enter</h4>
             {/* <div className={style.content}> */}
-            <div className={style.blocks}>
+            <div className={cx(style.blocks, 'nodrag')}>
               {onEnter.map((action, i) => (
                 <NodeBlock type={metaFromAction(action)} key={i} />
               ))}
@@ -48,7 +53,7 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
           <>
             <h4>On Receive</h4>
             {/* <div className={style.content}> */}
-            <div className={style.blocks}>
+            <div className={cx(style.blocks, 'nodrag')}>
               {onReceive.map((action, i) => (
                 <NodeBlock type={metaFromAction(action)} key={i} />
               ))}
@@ -60,10 +65,10 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
       <div className={style.footer}>
         <h4>Transitions</h4>
         <div className={style.transitions}>
-          {next.map(({ condition, caption, node }) => (
-            <div className={style.transition}>
-              {caption || condition}
-              <Handle type="source" position={Position.Right} />
+          {next.map(({ condition, caption, node }, idx) => (
+            <div className={cx(style.transition, 'nodrag')}>
+              {condition} {caption} {node}
+              <Handle id={`out${idx}`} type="source" position={Position.Right} />
             </div>
           ))}
         </div>

@@ -40,7 +40,7 @@ export const toRFlow: RFLowFn = (bpFlow) => {
     edges: bpFlow.links.map(({ id, source, target, sourcePort }) => {
       return {
         id,
-        type: 'smoothstep',
+        type: 'bp_edge',
         source,
         target,
         sourceHandle: sourcePort

@@ -121,17 +121,29 @@
   h2 {
     @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
 
+    cursor: pointer;
     margin: 0;
     padding: 4px 8px;
     background-color: white;
     border-radius: 6px;
 
     @extend %font-lg, %text-medium;
+
+    &.selected {
+      box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4,
+        0px 1px 6px 0px rgba(bp.$gray1, 0.25);
+      // transform: translateY(-2px);
+      &:after {
+        background-color: bp.$cobalt4;
+      }
+      outline: 1.9px solid bp.$cobalt4;
+    }
   }
 }
 
 .blocks {
   @extend .content;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   row-gap: 4px;
@@ -157,7 +169,7 @@
   &-prompt {
     @extend .block;
     // background-color: rgba(bp.$rose5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose4);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$orange4);
   }
 
   &-simple {
@@ -182,7 +194,8 @@
 }
 
 .transitions {
-  position: relative;
+  // position: relative;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   row-gap: 6px;
@@ -200,6 +213,7 @@
 }
 
 .transition {
+  position: relative;
   width: 100%;
   background-color: white;
   padding: 4px 12px;
