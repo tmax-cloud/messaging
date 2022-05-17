@@ -3,9 +3,9 @@ import cx from 'classnames'
 import React, { FC } from 'react'
 import { Handle, Position, WrapNodeProps } from 'react-flow-renderer'
 
+import Tags from '~/src/components/Tags'
 import { metaFromAction } from '../../utils/convertBotData'
 import * as style from './smooth.module.scss'
-import Tags from '~/src/components/Tags'
 
 interface StandardNodeData {
   name: string
@@ -17,16 +17,19 @@ interface StandardNodeData {
 export type OwnProps = WrapNodeProps<StandardNodeData>
 
 const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter, onReceive, next } }) => {
-  
   const getType = (action) => {
-    if (action.includes('say #!builtin_text')) return style['block-simple']
-    else if (action.includes('say #!builtin_carousel')) return style['block-complex']
-    else if (action.includes('builtin/setVariable')) return style['block-code']
+    if (action.includes('say #!builtin_text')) {
+      return style['block-simple']
+    } else if (action.includes('say #!builtin_carousel')) {
+      return style['block-complex']
+    } else if (action.includes('builtin/setVariable')) {
+      return style['block-code']
+    }
     return style.block
   }
 
   return (
-    <div className={cx(style.nodeContainer,  selected ? style.selected : null , dragging ? style.dragging : null )}>
+    <div className={cx(style.nodeContainer, selected ? style.selected : null, dragging ? style.dragging : null)}>
       <div className={style.head}>
         <div className={style.port}>
           <div>
@@ -35,7 +38,7 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
           </div>
         </div>
       </div>
-      
+
       <div className={style.content}>
         {onEnter && (
           <>
@@ -43,7 +46,7 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
             <div className={style.blocks}>
               {onEnter.map((action) => (
                 <div className={getType(action)}>
-                  <Tags icon="Text" type="simple" text/>
+                  <Tags icon="Text" type="simple" text />
                   <span>{metaFromAction(action).action}</span>
                 </div>
               ))}
