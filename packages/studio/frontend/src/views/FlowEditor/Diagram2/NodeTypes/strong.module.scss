@@ -2,12 +2,15 @@
 @use '~/src/scss/base/index.module' as base;
 @use '~/src/scss/vendor/index.module' as bp;
 
+:export {
+  tipColor: bp.$light-gray1;
+}
+
 .nodeContainer {
   // @include abstracts.block-shadow(2px, 1px, bp.$light-gray2, bp.$light-gray2);
   box-shadow: 0px 0px 0px 1px bp.$gray5;
   // border: 1px solid bp.$gray4;
   width: 275px;
-  min-height: 250px;
 
   display: flex;
   flex-direction: column;
@@ -17,8 +20,6 @@
   padding-top: 12px;
   border-radius: 8px;
   background-color: white;
-
-  transition: box-shadow 150ms linear;
 
   @extend %shadow-sm;
 
@@ -43,11 +44,32 @@
   //   background-color: bp.$dark-gray2;
   //   width: 100%;
   // }
-  
+
+  transition: all 100ms linear;
+
+  &.selected {
+    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4, 0px 1px 6px 0px rgba(bp.$gray1, 0.25);
+    // transform: translateY(-2px);
+    &:after {
+      background-color: bp.$cobalt4;
+    }
+    outline: 2px solid bp.$cobalt4;
+  }
+
+  &.dragging {
+    box-shadow: 0px -1px 0px 0px bp.$light-gray4, 0px 1px 0px 0px bp.$light-gray4,
+      0px 4px 12px 0px rgba(bp.$gray1, 0.25);
+    transform: translateY(-2px);
+  }
 }
 
 .head {
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  padding-right: 12px;
 }
 
 .content {
@@ -76,11 +98,10 @@
   margin-top: 0;
   border: 1px solid bp.$gray5;
   border-left: none;
-  
-  
+
   h2 {
     @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
-    
+
     margin: 0;
     padding: 4px 8px;
     background-color: white;
@@ -93,20 +114,14 @@
   display: flex;
   flex-direction: column;
   row-gap: 6px;
-  
+
   border-radius: 8px;
 }
 
 .block {
-  display: flex;
-  flex-direction: row;
-  column-gap: 8px;
-  width: 100%;
-  padding: 4px;
-  border-radius: 6px;
   color: bp.$dark-gray2;
   background-color: white;
-  
+
   &:hover {
     background-color: white;
   }
@@ -115,32 +130,31 @@
 
   &-prompt {
     @extend .block;
-    
+
     // background-color: rgba(bp.$rose5, 0.2);
     @include abstracts.block-shadow(2px, 1px, bp.$rose5, bp.$rose5);
   }
-  
+
   &-simple {
     @extend .block;
-    
+
     // background-color: rgba(bp.$green5, 0.2);
     @include abstracts.block-shadow(2px, 1px, bp.$green5, bp.$green5);
   }
 
   &-code {
     @extend .block;
-    
+
     // background-color: rgba(bp.$cobalt5, 0.2);
     @include abstracts.block-shadow(2px, 1px, bp.$cobalt5, bp.$cobalt5);
   }
 
   &-complex {
     @extend .block;
-    
+
     // background-color: rgba(bp.$indigo5, 0.2);
     @include abstracts.block-shadow(2px, 1px, bp.$indigo5, bp.$indigo5);
   }
-
 }
 
 .transitions {
@@ -163,7 +177,7 @@
   background-color: white;
   padding: 4px 12px;
   border-radius: 6px;
-  
+
   @extend %font-md, %text-normal;
 
   @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
@@ -172,6 +186,5 @@
     transition: all 75ms linear;
     background-color: white;
     // transform: translateY(-1px);
-    
   }
 }

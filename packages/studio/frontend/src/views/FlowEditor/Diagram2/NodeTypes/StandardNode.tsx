@@ -1,10 +1,12 @@
+import { Icon } from '@blueprintjs/core'
 import { NodeTransition } from '@botpress/sdk'
 import cx from 'classnames'
 import React, { FC } from 'react'
 import { Handle, Position, WrapNodeProps } from 'react-flow-renderer'
 
-import Tags from '~/src/components/Tags'
 import { metaFromAction } from '../../utils/convertBotData'
+import NodeBlock from './shared/NodeBlock'
+
 import * as style from './smooth.module.scss'
 
 interface StandardNodeData {
@@ -17,17 +19,6 @@ interface StandardNodeData {
 export type OwnProps = WrapNodeProps<StandardNodeData>
 
 const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter, onReceive, next } }) => {
-  const getType = (action) => {
-    if (action.includes('say #!builtin_text')) {
-      return style['block-simple']
-    } else if (action.includes('say #!builtin_carousel')) {
-      return style['block-complex']
-    } else if (action.includes('builtin/setVariable')) {
-      return style['block-code']
-    }
-    return style.block
-  }
-
   return (
     <div className={cx(style.nodeContainer, selected ? style.selected : null, dragging ? style.dragging : null)}>
       <div className={style.head}>
@@ -37,33 +28,32 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
             <Handle type="target" position={Position.Left} />
           </div>
         </div>
+        <Icon icon="help" color={style.tipColor} />
       </div>
 
-      <div className={style.content}>
+      <div className={style.nodeBody}>
         {onEnter && (
           <>
             <h4>On Enter</h4>
+            {/* <div className={style.content}> */}
             <div className={style.blocks}>
-              {onEnter.map((action) => (
-                <div className={getType(action)}>
-                  <Tags icon="Text" type="simple" text />
-                  <span>{metaFromAction(action).action}</span>
-                </div>
+              {onEnter.map((action, i) => (
+                <NodeBlock type={metaFromAction(action)} key={i} />
               ))}
             </div>
+            {/* </div> */}
           </>
         )}
         {onReceive && (
           <>
             <h4>On Receive</h4>
+            {/* <div className={style.content}> */}
             <div className={style.blocks}>
-              {onReceive.map((action) => (
-                <div className={style.block}>
-                  <div>[]</div>
-                  <span>{metaFromAction(action).action}</span>
-                </div>
+              {onReceive.map((action, i) => (
+                <NodeBlock type={metaFromAction(action)} key={i} />
               ))}
             </div>
+            {/* </div> */}
           </>
         )}
       </div>

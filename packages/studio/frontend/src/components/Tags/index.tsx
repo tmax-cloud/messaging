@@ -1,42 +1,79 @@
 import { Icon } from '@blueprintjs/core'
-import cx from 'classnames'
 import React, { FC } from 'react'
 import * as style from './style.module.scss'
 
-
 export interface OwnProps {
   icon: string
-  text?: boolean
-  type: string
+  label?: boolean
 }
 
-const Tags: FC<OwnProps> = ({ icon, text, type }) => {
-  return (
-    <div className={type === 'simple' ? style['tag-simple'] : style.tag}>
-      {icon === "Text" ? <Text /> : icon === "Code" ? <Code /> : null}
-      { text ? <span>{icon}</span> : null}
-    </div>
-  )
-}
-
-const Text = () => (
-  <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7.9532 2H1.2052V3.456H3.7532V11.24H5.4052V3.456H7.9532V2Z" fill="#fff"/>
-    <path d="M14.6112 8.902C14.3732 9.532 13.8832 9.924 13.2672 9.924C12.6512 9.924 12.3292 9.56 12.3292 8.888V5.836H15.2692V4.38H12.3292V2H10.9572L10.6772 4.38H8.94118V5.836H10.6772V9C10.6772 10.554 11.5872 11.408 13.1412 11.408C14.4852 11.408 15.4792 10.764 15.9552 9.644L14.6112 8.902Z" fill="#fff"/>
+const Card = () => (
+  <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M9.5 12.7971H2.5C2.2 12.7971 2 12.9971 2 13.2971C2 13.5971 2.2 13.7971 2.5 13.7971H9.5C9.8 13.7971 10 13.5971 10 13.2971C10 12.9971 9.8 12.7971 9.5 12.7971ZM1 15.7971H15C15.6 15.7971 16 15.3971 16 14.7971V2.79706C16 2.19706 15.6 1.79706 15 1.79706H1C0.4 1.79706 0 2.19706 0 2.79706V14.7971C0 15.3971 0.4 15.7971 1 15.7971ZM2 3.79706H14V11.7971H2V3.79706Z"
+      fill="white"
+    />
   </svg>
 )
 
-const Code = () => (
-  <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_86_1823)">
-      <path d="M10.9505 -0.797058L1.39293 7.59509C1.30364 7.67189 1.24261 7.77043 1.21772 7.87798C1.19283 7.98553 1.20522 8.09717 1.2533 8.19847C1.30137 8.29978 1.38292 8.38611 1.48742 8.44632C1.59192 8.50654 1.71458 8.53789 1.83956 8.53629H7.22127C7.33928 8.53348 7.4558 8.56004 7.55732 8.61294C7.65885 8.66585 7.74124 8.74294 7.79497 8.83524C7.8487 8.92755 7.87158 9.03131 7.86094 9.13455C7.8503 9.2378 7.80661 9.3363 7.73488 9.41864L2.79978 15.2029L13.9652 6.96766C14.0703 6.89544 14.1464 6.79558 14.1822 6.68268C14.2181 6.56977 14.2118 6.44976 14.1644 6.34019C14.117 6.23063 14.0309 6.13724 13.9187 6.07373C13.8065 6.01023 13.6741 5.97994 13.5409 5.98727L6.84165 6.22255C6.72653 6.22318 6.6133 6.19686 6.51362 6.14629C6.41394 6.09572 6.33142 6.02273 6.27455 5.93485C6.21768 5.84696 6.18852 5.74735 6.19007 5.64628C6.19162 5.5452 6.22383 5.44631 6.28338 5.3598L10.9505 -0.797058Z" fill="white"/>
-    </g>
-    <defs>
-      <clipPath id="clip0_86_1823">
-        <rect width="16" height="14" fill="white" transform="translate(0.2052)"/>
-      </clipPath>
-    </defs>
+const Carousel = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 2.45241L12 13.5476C12 13.7038 11.9429 13.827 11.8736 13.9036C11.8057 13.9786 11.7381 14 11.6856 14L4.31436 14C4.2619 14 4.19431 13.9786 4.12643 13.9036C4.05709 13.827 4 13.7038 4 13.5476L4 2.45241C4 2.29615 4.05709 2.17302 4.12643 2.09639C4.19431 2.02139 4.2619 2 4.31436 2L11.6856 2C11.7381 2 11.8057 2.02139 11.8736 2.09639C11.9429 2.17302 12 2.29615 12 2.45241Z"
+      stroke="white"
+      stroke-width="2"
+      stroke-miterlimit="10"
+    />
+    <rect y="3" width="2" height="10" rx="1" fill="white" />
+    <rect x="14" y="3" width="2" height="10" rx="1" fill="white" />
   </svg>
 )
+
+export const TagGroups = {
+  simple: [
+    { type: 'text', icon: <Icon icon="chat" color="#fff" size={12} /> },
+    { type: 'audio', icon: <Icon icon="volume-up" color="#fff" size={12} /> },
+    { type: 'image', icon: <Icon icon="media" color="#fff" size={12} /> },
+    { type: 'video', icon: <Icon icon="video" color="#fff" size={12} /> },
+    { type: 'location', icon: <Icon icon="map-marker" color="#fff" size={12} /> },
+    { type: 'file', icon: <Icon icon="document" color="#fff" size={12} /> }
+  ],
+  complex: [
+    { type: 'card', icon: <Card /> },
+    { type: 'carousel', icon: <Carousel /> }
+  ],
+  prompt: [
+    { type: 'actionbuttons', icon: <Icon icon="stadium-geometry" color="#fff" size={12} /> },
+    { type: 'say #!dropdown', icon: <Icon icon="th-list" color="#fff" size={12} /> },
+    { type: 'single choice', icon: <Icon icon="property" color="#fff" size={12} /> }
+  ],
+  code: [
+    { type: 'basic-skills/slot_reset', icon: <Icon icon="lightning" color="#fff" size={12} /> },
+    { type: 'builtin/removeVariable', icon: <Icon icon="lightning" color="#fff" size={12} /> },
+    { type: 'builtin/setVariable', icon: <Icon icon="lightning" color="#fff" size={12} /> }
+  ]
+}
+
+const Tags: FC<OwnProps> = ({ icon, label }) => {
+  function GetTag() {
+    let tag = null
+    for (const [key, value] of Object.entries(TagGroups)) {
+      value.find((o, i) => {
+        if (o.type === icon) {
+          tag = (
+            <div className={style[`tag-${key}`]} key={i}>
+              {o.icon} {label ? <span>{icon}</span> : null}
+            </div>
+          )
+        }
+      })
+    }
+    return tag
+  }
+
+  return GetTag()
+}
 
 export default Tags

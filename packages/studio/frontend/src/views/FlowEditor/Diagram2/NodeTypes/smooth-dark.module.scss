@@ -2,6 +2,10 @@
 @use '~/src/scss/base/index.module' as base;
 @use '~/src/scss/vendor/index.module' as bp;
 
+:export {
+  tipColor: bp.$dark-gray4;
+}
+
 .nodeContainer {
   // @include abstracts.block-shadow(2px, 1px, bp.$light-gray2, bp.$light-gray2);
   box-shadow: 0px -1px 0px 0px bp.$gray4, 0px 1px 0px 0px bp.$gray4, 0px 1px 2px 0px bp.$gray5;
@@ -45,11 +49,15 @@
   //   background-color: bp.$gray5;
   //   width: 100%;
   // }
-  
 }
 
 .head {
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  padding-right: 12px;
 }
 
 .content {
@@ -57,14 +65,15 @@
   margin: 6px;
   margin-top: 12px;
   border-radius: 6px;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  row-gap:6px;
+  row-gap: 6px;
   background-color: bp.$dark-gray2;
   // border: 1px solid bp.$gray5;
   // @extend %shadow-inner;
   // box-shadow: 1px 2px 0px 0px bp.$gray4 inset, -1px 2px 0px 0px bp.$gray4 inset;
-  box-shadow: 1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, -1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, 0px 0px 1px 0px rgba(bp.$dark-gray1, 1);
+  box-shadow: 1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, -1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset,
+    0px 0px 1px 0px rgba(bp.$dark-gray1, 1);
 }
 
 .footer {
@@ -84,11 +93,10 @@
   border-left: none;
 
   box-shadow: -1px 2px 1px 0px rgba(bp.$dark-gray1, 0.5) inset, 0px 0px 1px 0px rgba(bp.$dark-gray1, 1);
-  
-  
+
   h2 {
     @include abstracts.block-shadow-smooth(2px, 1px, bp.$dark-gray1);
-    
+
     margin: 0;
     padding: 4px 8px;
     background-color: bp.$dark-gray3;
@@ -107,18 +115,11 @@
 }
 
 .block {
-  display: flex;
-  flex-direction: row;
-  column-gap: 8px;
-  width: 100%;
-  padding: 6px;
-  border-radius: 6px;
   color: bp.$gray4;
-  background-color: bp.$dark-gray4;
-  align-items: center;
+  background-color: bp.$dark-gray5;
 
   @include abstracts.block-shadow-smooth(2px, 1px, bp.$dark-gray1);
-  
+
   &:hover {
     background-color: bp.$dark-gray5;
   }
@@ -127,35 +128,33 @@
 
   &-prompt {
     @extend .block;
-    // background-color: rgba(bp.$rose5, 0.2);
+
     @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose5);
   }
-  
+
   &-simple {
     @extend .block;
-    
+
     @include abstracts.block-shadow-smooth(2px, 1px, bp.$green2);
     &:hover {
-      // color: black;
       @include abstracts.block-shadow-smooth(2px, 1px, bp.$green3);
-      background-color: bp.$dark-gray5;
+      // background-color: bp.$dark-gray5;
     }
   }
 
   &-code {
     @extend .block;
-    
+
     // background-color: rgba(bp.$cobalt5, 0.2);
     @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt5);
   }
 
   &-complex {
     @extend .block;
-    
+
     // background-color: rgba(bp.$indigo5, 0.2);
     @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo5);
   }
-
 }
 
 .transitions {
@@ -180,7 +179,7 @@
   background-color: bp.$dark-gray4;
   padding: 4px 12px;
   border-radius: 6px;
-  
+
   @extend %font-md, %text-normal;
 
   // @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
@@ -190,6 +189,5 @@
     transition: all 75ms linear;
     background-color: bp.$dark-gray5;
     // transform: translateY(-1px);
-    
   }
 }

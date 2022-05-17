@@ -1,0 +1,36 @@
+@use '../../simple.module.scss' as *;
+@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/base/index.module' as base;
+@use '~/src/scss/vendor/index.module' as bp;
+
+.block {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+  width: 100%;
+  padding: 4px;
+  border-radius: 6px;
+  align-items: center;
+  color: bp.$gray1;
+
+  &:hover {
+    background-color: white;
+    color: bp.$dark-gray4;
+  }
+
+  &-prompt {
+    @extend .block;
+  }
+
+  &-simple {
+    @extend .block;
+  }
+
+  &-code {
+    @extend .block;
+  }
+
+  &-complex {
+    @extend .block;
+  }
+}
