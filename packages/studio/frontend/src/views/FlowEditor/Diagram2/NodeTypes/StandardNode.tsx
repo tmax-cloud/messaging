@@ -3,6 +3,7 @@ import { NodeTransition } from '@botpress/sdk'
 import cx from 'classnames'
 import React, { FC } from 'react'
 import { Handle, Position, WrapNodeProps } from 'react-flow-renderer'
+
 import { metaFromAction } from '../../utils/convertBotData'
 import NodeBlock from './shared/NodeBlock'
 
