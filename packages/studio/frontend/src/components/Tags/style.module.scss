@@ -8,11 +8,13 @@
   padding: 2px 4px;
   border-radius: 4px;
   color: white;
-  
+  height: 20px;
+  width: 20px;
+
   span {
     @extend %font-sm, %text-normal;
   }
-  
+
   &-simple {
     @extend .tag;
     background-color: bp.$green4;
@@ -20,5 +22,17 @@
   &-code {
     @extend .tag;
     background-color: bp.$cobalt4;
+  }
+  &-complex {
+    @extend .tag;
+    background-color: bp.$indigo4;
+  }
+  &-prompt {
+    @extend .tag;
+    background-color: bp.$rose4;
+  }
+
+  svg {
+    height: 100%;
   }
 }

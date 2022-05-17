@@ -14,18 +14,30 @@
   min-height: min-content;
   display: flex;
   flex-direction: column;
-  outline: white solid 0px;
   // row-gap:6px;
 
-  padding: 6px 0;
+  padding-bottom: 8px;
   padding-top: 12px;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
+
   background-color: rgb(252, 252, 252);
   // background-color: white;
 
   transition: all 100ms linear;
 
   @extend %shadow-sm;
+
+  &:after {
+    content: '';
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0px;
+    top: -1px;
+    height: 4px;
+    background-color: bp.$gray5;
+    width: 100%;
+  }
 
   &:hover {
     // @extend %shadow-md;
@@ -53,18 +65,6 @@
       0px 4px 12px 0px rgba(bp.$gray1, 0.25);
     transform: translateY(-2px);
   }
-
-  // &:after {
-  //   content: "";
-  //   display: block;
-  //   box-sizing: border-box;
-  //   position: absolute;
-  //   left: 0;
-  //   top: 0;
-  //   height: 4px;
-  //   background-color: bp.$gray5;
-  //   width: 100%;
-  // }\
 }
 
 .head {
@@ -83,46 +83,43 @@
 }
 
 .content {
-  padding: 4px;
-  margin: 6px;
+  // padding: 4px;
+  margin: 6px 10px;
   margin-top: 12px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   row-gap: 6px;
-  background-color: bp.$light-gray4;
+  // background-color: bp.$light-gray4;
   // border: 1px solid bp.$gray5;
   // @extend %shadow-inner;
   // box-shadow: 1px 2px 0px 0px bp.$gray4 inset, -1px 2px 0px 0px bp.$gray4 inset;
-  box-shadow: 1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset, -1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset,
-    0px 0px 1px 0px rgba(bp.$gray5, 1);
+  // box-shadow: 1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset, -1px 2px 1px 0px rgba(bp.$gray5, 0.5) inset, 0px 0px 1px 0px rgba(bp.$gray5, 1);
 }
 
 .footer {
   // padding-left: 6px;
-  display: flex;
-  flex-direction: column;
 }
 
 .port {
   position: relative;
   padding: 4px;
   padding-left: 6px;
-  background-color: bp.$light-gray4;
+  // background-color: bp.$light-gray4;
   width: fit-content;
   border-radius: 0 8px 8px 0;
-  box-shadow: 0px 2px 0px 0px bp.$gray4 inset;
+  // box-shadow: 0px 2px 0px 0px bp.$gray4 inset;
   margin-top: 0;
   // border: 1px solid bp.$gray5;
   border-left: none;
 
-  box-shadow: -1px 2px 1px 0px rgba(bp.$gray4, 0.5) inset, 0px 0px 1px 0px rgba(bp.$gray5, 1);
+  // box-shadow: -1px 2px 1px 0px rgba(bp.$gray4, 0.5) inset, 0px 0px 1px 0px rgba(bp.$gray5, 1);
 
   h2 {
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
+    // @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
 
     margin: 0;
-    padding: 4px 8px;
+    padding: 4px;
     background-color: white;
     border-radius: 6px;
 
@@ -137,19 +134,16 @@
   row-gap: 4px;
   align-items: center;
   border-radius: 8px;
-  margin-top: 6px;
 }
 
 .block {
-  color: bp.$gray5;
+  color: bp.$dark-gray4;
   background-color: white;
-  overflow: hidden;
 
   @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
 
   &:hover {
     background-color: white;
-    color: bp.$dark-gray4;
   }
 
   @extend %font-sm, %text-normal;
@@ -157,7 +151,7 @@
   &-prompt {
     @extend .block;
     // background-color: rgba(bp.$rose5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose4);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$rose5);
   }
 
   &-simple {
@@ -170,14 +164,14 @@
     @extend .block;
 
     // background-color: rgba(bp.$cobalt5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt4);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt5);
   }
 
   &-complex {
     @extend .block;
 
     // background-color: rgba(bp.$indigo5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo4);
+    @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo5);
   }
 }
 
@@ -205,7 +199,7 @@
   padding: 4px 12px;
   border-radius: 6px;
 
-  @extend %font-md, %text-normal;
+  @extend %font-sm, %text-normal;
 
   // @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
   @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);

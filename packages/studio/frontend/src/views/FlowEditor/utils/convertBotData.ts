@@ -53,7 +53,7 @@ export const metaFromAction = (action: string) => {
   const split = action.split(' ')
   if (split[0] === 'say') {
     return {
-      type: action.slice(action.indexOf('_') + 1, action.lastIndexOf('-')),
+      type: action.slice(action.indexOf('_') + 1, action.indexOf('-')),
       action: split[1]
     }
   }

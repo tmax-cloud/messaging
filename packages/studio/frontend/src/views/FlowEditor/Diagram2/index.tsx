@@ -37,10 +37,10 @@ const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode }) => {
     shallow
   )
 
-  useEffect(() => {
-    console.log(nodes, edges)
-    reactFlow.fitView({ padding: 1.25, duration: 500 })
-  }, [nodes, edges])
+  // useEffect(() => {
+  //   console.log(nodes, edges)
+  //   reactFlow.fitView({ padding: 1.25, duration: 500 })
+  // }, [nodes, edges])
 
   useEffect(() => {
     console.log('wat')
