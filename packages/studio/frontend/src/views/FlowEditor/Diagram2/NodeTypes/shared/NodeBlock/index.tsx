@@ -4,7 +4,6 @@ import Tags, { TagGroups } from '~/src/components/Tags'
 import style from './style.module.scss'
 
 const NodeBlock = (type) => {
-  console.log(type)
   function GetBlockClass() {
     let group = null
     for (const [key, value] of Object.entries(TagGroups)) {
