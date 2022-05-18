@@ -1,6 +1,8 @@
 .formKitContainer {
   display: flex;
   flex-direction: column;
+  padding: 8px;
+  row-gap: 6px;
 }
 
 .labelSection {

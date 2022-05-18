@@ -17,8 +17,11 @@ const NodePane: FC<OwnProps> = ({ currentNode }) => {
     <div className={layout.container}>
       <FormKit form={{ heello: 'lol' }}>
         <Collapse idx={0} label="Basic">
-          <Text value={name} large />
-          <Text value={'just a regular standard normal node.'} />
+          <div className={layout.head}>
+            <Text value={name} large />
+            <Text value={'just a regular standard normal node.'} />
+          </div>
+
           <BlockList id="onEnter" label="On Enter" value={onEnter} />
           <BlockList id="onReceive" label="On Receive" value={onReceive || []} />
         </Collapse>

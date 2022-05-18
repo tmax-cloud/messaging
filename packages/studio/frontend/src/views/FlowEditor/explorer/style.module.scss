@@ -15,7 +15,7 @@
 
   z-index: 50;
 
-  @extend %shadow-edge-sm;
+  @extend %shadow-edge-md;
 }
 
 .head {
@@ -28,7 +28,7 @@
 
 .insetSection {
   @extend %flex-column, %shadow-inner-2;
-  margin: 6px;
+  margin: 8px;
   min-height: 200px;
   background: bp.$light-gray5;
   border-radius: 6px;
@@ -58,7 +58,7 @@
 }
 
 .search {
-  @extend %font-sm, %text-normal, %transition-all-50, %shadow-inner;
+  @extend %font-md, %text-normal, %transition-all-50, %shadow-inner;
   border-radius: 6px;
   border: 0px;
   padding: 6px 8px;

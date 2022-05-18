@@ -1,21 +1,20 @@
-@import '@blueprintjs/core/lib/scss/variables';
+@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/base/index.module' as base;
+@use '~/src/scss/vendor/index.module' as *;
 
 .common {
+  @extend %text-normal, %font-md;
   color: $dark-gray5;
-  font-family: 'Roboto';
-  font-size: 12px;
-  line-height: 14px;
 }
 
 .large {
-  font-size: 14px;
-  line-height: 17px;
+  @extend %text-medium, %font-xl;
   color: $dark-gray2;
 }
 
 .default {
   font-style: normal;
-  font-weight: 700;
+  @extend %text-normal;
 }
 
 .lite {

@@ -1,3 +1,7 @@
+@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/base/index.module' as base;
+@use '~/src/scss/vendor/index.module' as bp;
+
 @import '@blueprintjs/core/lib/scss/variables';
 
 .container {
@@ -6,11 +10,16 @@
   flex-direction: column;
   justify-content: center;
   // align-items: center;
-  background-color: $light-gray5;
-  border: 1px solid $gray4;
+  // border: 1px solid $gray4;
   border-radius: 8px;
   padding: 8px;
   gap: 8px;
+  min-height: 38px;
+  padding: 4px;
+
+  row-gap: 6px;
+  background-color: bp.$light-gray4;
+  @extend %shadow-inner-2;
 }
 
 .customDragLayer {

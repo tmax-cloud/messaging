@@ -1,9 +1,9 @@
 import cx from 'classnames'
 import React, { useCallback, forwardRef, FC } from 'react'
 
+import Tags from '~/src/components/Tags'
 import useInspectorStore from '../../../../store'
-import { Grabber, OptionMenu, Text, TextIntents } from '../../../shared'
-import BlockTags from './BlockTags'
+import { Text, TextIntents } from '../../../shared'
 import * as style from './style.module.scss'
 
 // export enum BlockTypes {
@@ -37,16 +37,15 @@ const Block: FC<OwnProps> = forwardRef(
 
     return (
       <div ref={ref as any} className={cx(style.container, className)} onClick={() => openTabId(block)}>
-        {grab && <Grabber className={cx({ [style.hidden]: dragging })} />}
+        {/* {grab && <Grabber className={cx({ [style.hidden]: dragging })} />} */}
         <div
           className={cx(style.block, { [style.temp]: temp, [style.grab]: grab, [style.dragging]: dragging })}
           onClick={handleClicks}
         >
-          <BlockTags type={'text'} />
+          <Tags icon="text" />
           {/* <Text className={style.type} value={block.type} large /> */}
           <Text className={style.name} intent={TextIntents.LITE} value={block} large />
           {/* <Text className={style.id} intent={TextIntent.LITE_PLACEHOLDER} value={} /> */}
-          {grab && !dragging && <OptionMenu className={style.options} onAction={() => {}} />}
         </div>
       </div>
     )

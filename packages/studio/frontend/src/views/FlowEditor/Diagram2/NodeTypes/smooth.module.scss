@@ -63,10 +63,10 @@
 }
 
 .content {
-  padding: 4px;
   margin: 6px;
   margin-top: 12px;
   border-radius: 6px;
+  padding: 4px;
   display: flex;
   flex-direction: column;
   row-gap: 6px;
@@ -126,6 +126,7 @@
   align-items: center;
   border-radius: 8px;
   margin-top: 6px;
+  min-height: 36px;
 }
 
 .block {

@@ -39,7 +39,9 @@ const Inspector: FC<OwnProps> = ({ currentFlowNode = {} }) => {
     <DragDropContext>
       <div className={style.container}>
         <TabBar contextNodeName={name} />
-        {activeTabIdx === -1 ? renderPane(type as PaneTypes) : renderPane(PaneTypes.BLOCK)}
+        <div className={style.panes}>
+          {activeTabIdx === -1 ? renderPane(type as PaneTypes) : renderPane(PaneTypes.BLOCK)}
+        </div>
       </div>
     </DragDropContext>
   )

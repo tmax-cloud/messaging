@@ -4,11 +4,18 @@
 @use '~/src/scss/vendor/index.module' as bp;
 
 .container {
+  @extend %flex-column;
+  row-gap: 6px;
+  z-index: 50;
   width: 350px;
   min-height: 100px;
   align-self: flex-end;
+}
+
+.panes {
+  @extend %shadow-edge-md;
   background-color: white;
-  z-index: 50;
+  border-radius: 8px;
 }
 
 .duoContainer {

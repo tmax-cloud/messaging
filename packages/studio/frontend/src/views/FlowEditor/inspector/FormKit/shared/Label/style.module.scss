@@ -1,3 +1,7 @@
+@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/base/index.module' as base;
+@use '~/src/scss/vendor/index.module' as bp;
+
 @import '@blueprintjs/core/lib/scss/variables';
 
 .label {
@@ -8,8 +12,7 @@
   padding-right: 0.6rem;
 
   h4 {
-    font-size: 1rem;
-    font-weight: 500;
+    @extend %font-md, %text-medium;
     flex: 1;
     margin: 0;
 
