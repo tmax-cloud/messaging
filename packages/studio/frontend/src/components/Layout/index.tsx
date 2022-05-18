@@ -20,7 +20,6 @@ import CodeEditor from '../../views/CodeEditor'
 import Config from '../../views/Config'
 import Content from '../../views/Content'
 import FlowBuilder from '../../views/FlowBuilder'
-import FlowEditor from '../../views/FlowEditor'
 import Module from '../../views/Module'
 import NLU from '../../views/Nlu'
 import QNA from '../../views/Qna'
@@ -204,7 +203,7 @@ const Layout: FC<Props> = (props: Props) => {
     <Fragment>
       <HotKeys handlers={keyHandlers} id="mainLayout" className={layout.mainLayout}>
         <Sidebar />
-        <div className={cx(layout.container, { '@ns-dark': true })}>
+        <div className={cx(layout.container)}>
           <TopNav toggleDocs={toggleDocs} onToggleEmulator={toggleEmulator} />
           <SplitPane
             split={'horizontal'}
@@ -229,7 +228,6 @@ const Layout: FC<Props> = (props: Props) => {
                   }}
                 />
                 <Route exact path="/content" component={Content} />
-                <Route exact path="/flows/:flow*" component={FlowEditor} />
                 <Route exact path="/oldflows/:flow*" component={FlowBuilder} />
                 <Route exact path="/config" component={Config} />
                 <Route exact path="/nlu" component={NLU} />

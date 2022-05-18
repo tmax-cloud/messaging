@@ -1,6 +1,5 @@
-import { FlowView } from '@botpress/common'
-import _ from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import cx from 'classnames'
+import React, { useEffect } from 'react'
 import { ReactFlowProvider } from 'react-flow-renderer'
 
 import { connect } from 'react-redux'
@@ -16,16 +15,12 @@ import {
   switchFlow,
   fetchFlows
 } from '~/src/actions'
-import { lang } from '~/src/components/Shared/translations'
-import { inspect } from '~/src/components/Shared/utilities/inspect'
-import { Timeout, toastFailure } from '~/src/components/Shared/Utils'
-import { isOperationAllowed } from '~/src/components/Shared/Utils/AccessControl'
 import { RootReducer, getCurrentFlowNode } from '~/src/reducers'
 
 import Diagram2 from './Diagram2'
-import SidePanel, { PanelPermissions } from './explorer'
+import Explorer from './explorer'
 import Inspector from './inspector'
-import * as style from './style.module.scss'
+import * as tmp from './tmp/tmp.module.scss'
 
 interface OwnProps {
   currentMutex: any
@@ -35,118 +30,67 @@ type StateProps = ReturnType<typeof mapStateToProps>
 type DispatchProps = typeof mapDispatchToProps
 type Props = DispatchProps & StateProps & OwnProps & RouteComponentProps
 
-const allActions: PanelPermissions[] = ['create', 'rename', 'delete']
-const searchTag = '#search:'
-
 const FlowEditor = (props: Props) => {
-  const { flow } = props.match.params as any
   const { currentFlowNode, fetchFlows } = props
-
-  const diagram: any = useRef(null)
-  const [showSearch, setShowSearch] = useState(false)
-  const [readOnly, setReadOnly] = useState(false)
-  const [mutex, setMutex] = useState<any>()
-  const [actions, setActions] = useState(allActions)
-  const [highlightFilter, setHighlightFilter] = useState<string>()
 
   useEffect(() => {
     fetchFlows()
   }, [])
 
-  useEffect(() => {
-    props.refreshActions()
-    props.refreshIntents()
-
-    if (!isOperationAllowed({ operation: 'write', resource: 'bot.flows' })) {
-      setReadOnly(true)
-      setActions([])
-    }
-
-    const { hash } = props.location
-    setHighlightFilter(hash.startsWith(searchTag) ? hash.replace(searchTag, '') : '')
-  }, [])
-
-  useEffect(() => {
-    props.currentFlow && pushFlowState(props.currentFlow)
-    inspect(props.flowsByName[props.currentFlow])
-  }, [props.currentFlow])
-
-  useEffect(() => {
-    const nextRouteFlow = `${flow}.flow.json`
-    if (flow && props.currentFlow !== nextRouteFlow) {
-      props.switchFlow(nextRouteFlow)
-    }
-  }, [flow])
-
-  useEffect(() => {
-    if (props.errorSavingFlows) {
-      const { status } = props.errorSavingFlows
-      const message = status === 403 ? lang.tr('studio.unauthUpdate') : lang.tr('studio.flow.errorWhileSaving')
-      toastFailure(message, Timeout.LONG, props.clearErrorSaveFlows, { delayed: true })
-    }
-  }, [props.errorSavingFlows])
-
-  useEffect(() => {
-    const me = props.user.email
-
-    const currentFlow = props.flowsByName[props.currentFlow]
-    const { currentMutex } = (currentFlow || {}) as FlowView
-
-    if (currentMutex?.remainingSeconds && currentMutex.lastModifiedBy !== me) {
-      setReadOnly(true)
-      setActions(['create'])
-      setMutex({ currentMutex })
-      return
-    }
-
-    const someoneElseIsEditingOtherFlow = _.values(props.flowsByName).some(
-      (f) => f.currentMutex?.remainingSeconds && f.currentMutex.lastModifiedBy !== me
-    )
-
-    if (isOperationAllowed({ operation: 'write', resource: 'bot.flows' })) {
-      setReadOnly(false)
-      setMutex(undefined)
-    }
-
-    if (someoneElseIsEditingOtherFlow) {
-      setActions(['create'])
-      setMutex({ someoneElseIsEditingOtherFlow: true })
-    } else {
-      setActions(allActions)
-    }
-  }, [props.flowsByName, props.currentFlow])
-
-  const pushFlowState = (flow) => props.history.push(`/flows/${flow.replace(/\.flow\.json/i, '')}`)
-
   return (
-    <div className={style.container}>
-      <div className={style.diagram}>
-        {/* <Diagram
-          readOnly={readOnly}
-          showSearch={showSearch}
-          hideSearch={() => setShowSearch(false)}
-          handleFilterChanged={handleFilterChanged}
-          highlightFilter={highlightFilter}
-          mutexInfo={mutex}
-          ref={(el) => {
-            if (!!el) {
-              // @ts-ignore
-              diagram = el.getWrappedInstance()
-            }
-          }}
-        /> */}
-        <ReactFlowProvider>
-          <Diagram2 />
-        </ReactFlowProvider>
+    <div className={cx(tmp.main)}>
+      <div className={tmp.view}>
+        <div className={tmp.diagram}>
+          <ReactFlowProvider>
+            <Diagram2 />
+          </ReactFlowProvider>
+        </div>
+
+        <div className={tmp.inner}>
+          <Explorer />
+          {currentFlowNode && <Inspector currentFlowNode={currentFlowNode} />}
+        </div>
       </div>
-      <SidePanel
-        onDeleteSelectedElements={() => diagram?.deleteSelectedElements()}
-        readOnly={readOnly}
-        mutexInfo={mutex}
-        permissions={actions}
-      />
-      {currentFlowNode && <Inspector currentFlowNode={currentFlowNode} />}
+      <div className={tmp.layout}>
+        <div className={tmp.nav}></div>
+        <div className={tmp.toolbar}>
+          <span>asdfs</span>
+          <span>Name</span>
+          <span>Train Chatbot</span>
+        </div>
+      </div>
     </div>
+    // <div className={tmp.view}>
+    //   <div className={style.container}>
+    //     <div className={style.diagram}>
+    //       {/* <Diagram
+    //       readOnly={readOnly}
+    //       showSearch={showSearch}
+    //       hideSearch={() => setShowSearch(false)}
+    //       handleFilterChanged={handleFilterChanged}
+    //       highlightFilter={highlightFilter}
+    //       mutexInfo={mutex}
+    //       ref={(el) => {
+    //         if (!!el) {
+    //           // @ts-ignore
+    //           diagram = el.getWrappedInstance()
+    //         }
+    //       }}
+    //     /> */}
+    //       <ReactFlowProvider>
+    //         <Diagram2 />
+    //       </ReactFlowProvider>
+    //     </div>
+    //     <div className={tmp.uiLayerBorder}>
+    //     <Explorer />
+    //     {currentFlowNode && <Inspector currentFlowNode={currentFlowNode} />}
+    //     </div>
+    //   </div>
+    //   <div className={tmp.uiLayerBorder}>
+    //     <Navbar />
+    //     <Toolbar />
+    //   </div>
+    // </div>
   )
 }
 
@@ -172,3 +116,15 @@ const mapDispatchToProps = {
 }
 
 export default connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(withRouter(FlowEditor))
+
+// main container (wraps around entire app)
+// View Wrapper Container
+// FlowEditor
+// Diagram
+// Inner View Layout invisiTM Container (reusable class, padds the view,low z-index,one to pad views if nessesairy like settings page)
+// Explorer
+// SearchBar and undo redo
+// Inspector
+// Layout Invisi Container
+// nav
+// toolbar

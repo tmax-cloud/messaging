@@ -1,4 +1,5 @@
 @use '~/src/scss/vendor/index.module' as bp;
+@use './variables.module' as *;
 
 @mixin block-shadow($height, $transform, $border-color, $hover-color) {
   transition: all 75ms linear;
@@ -28,5 +29,13 @@
     transform: translateY(-$transform);
     border: 1px solid $border-color;
     background-color: white;
+  }
+}
+
+@mixin theme-aware($key, $color) {
+  @each $theme-name, $theme-color in $themes {
+    .theme-#{$theme-name} & {
+      #{$key}: map-get(map-get($themes, $theme-name), $color);
+    }
   }
 }

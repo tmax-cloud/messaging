@@ -10,11 +10,11 @@
   row-gap: 6px;
   width: 250px;
   // padding: 6px;
-  background-color: white;
+  background-color: bp.$white;
   border-radius: 8px;
 
   z-index: 50;
-  margin: 10px;
+
   @extend %shadow-edge-sm;
 }
 
@@ -22,7 +22,7 @@
   @extend %flex-column;
 
   padding: 8px;
-  background: white;
+  background: bp.$white;
   border-radius: 6px;
 }
 
@@ -44,8 +44,7 @@
     color: bp.$gray2;
   }
 
-  &-selected {
-    @extend .navEl;
+  &.selected {
     color: bp.$dark-gray2;
     &:hover {
       color: bp.$gray1;

@@ -3,10 +3,11 @@ import queryString from 'query-string'
 import React from 'react'
 import ReactGA from 'react-ga'
 import { connect } from 'react-redux'
-import { Router, Switch } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 
 import Layout from '../../components/Layout'
 import injectSegment from '../../util/InjectSegment'
+import FlowEditor from '../../views/FlowEditor'
 
 // react-router doesn't do query parsing anymore since V4
 // https://github.com/ReactTraining/react-router/issues/4410
@@ -50,7 +51,8 @@ const RoutesRouter = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <AuthenticatedLayout />
+        <Route exact path="/" component={AuthenticatedLayout} />
+        <Route exact path="/flows/:flow*" component={FlowEditor} />
       </Switch>
     </Router>
   )
