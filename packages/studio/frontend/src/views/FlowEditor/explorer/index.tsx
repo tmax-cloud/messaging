@@ -1,22 +1,79 @@
+import { Icon } from '@blueprintjs/core'
 import cx from 'classnames'
-import React, { FC, useEffect } from 'react'
+import reject from 'lodash/reject'
+import React, { FC, useState } from 'react'
 import { connect } from 'react-redux'
-
-import { withRouter } from 'react-router-dom'
-import { createFlow, duplicateFlow, renameFlow, deleteFlow, switchFlow } from '~/src/actions'
+import { deleteFlow, duplicateFlow, renameFlow } from '~/src/actions'
+import { history } from '~/src/components/Routes'
 import { lang } from '~/src/components/Shared/translations'
-import { RootReducer, getAllFlows, getCurrentFlow, getFlowNamesList, getDirtyFlows } from '~/src/reducers'
+import { getAllFlows, getCurrentFlow, getDirtyFlows, getFlowNamesList } from '~/src/reducers'
 
+import FlowNameModal from './FlowNameModal'
+import FlowsList from './FlowsList'
 import * as style from './style.module.scss'
 
 export type PanelPermissions = 'create' | 'rename' | 'delete'
 
-const Explorer: FC<any> = ({ flows, dirtyFlows, flowsName }) => {
-  useEffect(() => {
-    console.log(flows)
-    console.log(dirtyFlows)
-    console.log(flowsName)
-  }, [flows, dirtyFlows, flowsName])
+interface Props {
+  flowsNames: string[]
+  onCreateFlow?: (flowName: string) => void
+  flows: any
+  deleteFlow: (flowName: string) => void
+  renameFlow: any
+  permissions: PanelPermissions[]
+  dirtyFlows: any
+  duplicateFlow: any
+  currentFlow: any
+  mutexInfo: string
+  readOnly: boolean
+  showFlowNodeProps: boolean
+  explorerOpen: boolean
+}
+
+const SidePanelContent: FC<Props> = ({
+  flows,
+  readOnly,
+  permissions,
+  dirtyFlows,
+  currentFlow,
+  flowsNames,
+  onCreateFlow = () => {}
+}) => {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [flowName, setFlowName] = useState<string>()
+  const [flowAction, setFlowAction] = useState<any>('create')
+  const [filter, setFilter] = useState<any>()
+
+  const goToFlow = (flow) => history.push(`/flows/${flow.replace(/\.flow\.json$/i, '')}`)
+
+  const normalFlows = reject(flows, (x) => x.name.startsWith('skills/'))
+  const flowsName = normalFlows.map((x) => {
+    return { name: x.name }
+  })
+
+  const createFlowAction = {
+    id: 'btn-add-flow',
+    icon: <Icon icon="add" />,
+    key: 'create',
+    tooltip: lang.tr('studio.flow.sidePanel.createNewFlow'),
+    onClick: () => {
+      setFlowAction('create')
+      setModalOpen(true)
+    }
+  }
+
+  const renameFlow: any = (flowName: string) => {
+    setFlowName(flowName)
+    setFlowAction('rename')
+    setModalOpen(true)
+  }
+
+  const duplicateFlow: any = (flowName: string) => {
+    setFlowName(flowName)
+    setFlowAction('duplicate')
+    setModalOpen(true)
+  }
+
   return (
     <div className={style.container}>
       <div className={style.head}>
@@ -27,59 +84,49 @@ const Explorer: FC<any> = ({ flows, dirtyFlows, flowsName }) => {
 
         <input className={style.search} placeholder="Filter nodes.." />
       </div>
-      <div className={style.insetSection}>{/* <Tree contents={buildFlowsTree(flows, {}) as any} /> */}</div>
+      <div className={style.insetSection}>
+        <FlowsList
+          readOnly={readOnly}
+          canDelete={permissions.includes('delete')}
+          canRename={permissions.includes('rename')}
+          flows={flowsName}
+          dirtyFlows={dirtyFlows}
+          goToFlow={goToFlow}
+          deleteFlow={deleteFlow}
+          duplicateFlow={duplicateFlow}
+          renameFlow={renameFlow}
+          currentFlow={currentFlow}
+          filter={filter}
+        />
+        <FlowNameModal
+          action={flowAction}
+          originalName={flowName}
+          flowsNames={flowsNames}
+          isOpen={modalOpen}
+          toggle={() => setModalOpen(!modalOpen)}
+          onCreateFlow={onCreateFlow}
+          onRenameFlow={renameFlow}
+          onDuplicateFlow={duplicateFlow}
+        />
+      </div>
     </div>
   )
 }
-const mapStateToProps = (state: RootReducer) => ({
-  flows: getAllFlows(state),
+
+const mapStateToProps = (state) => ({
   currentFlow: getCurrentFlow(state),
+  flows: getAllFlows(state),
   dirtyFlows: getDirtyFlows(state as never),
-  flowsName: getFlowNamesList(state as never)
+  flowProblems: state.flows.flowProblems,
+  flowsName: getFlowNamesList(state as never),
+  showFlowNodeProps: state.flows.showFlowNodeProps,
+  explorerOpen: state.ui.explorerOpen
 })
 
 const mapDispatchToProps = {
-  createFlow,
-  duplicateFlow,
-  renameFlow,
   deleteFlow,
-  switchFlow
+  duplicateFlow,
+  renameFlow
 }
 
-export default connect<any>(mapStateToProps, mapDispatchToProps)(withRouter(Explorer))
-
-// const mapStateToProps = (state: RootReducer) => ({
-//   flows: getAllFlows(state.flows),
-//   currentFlow: getCurrentFlow(state),
-//   currentFlowNode: getCurrentFlowNode(state as never),
-//   currentDiagramAction: state.flows.currentDiagramAction,
-//   canPasteNode: Boolean(state.flows.buffer?.nodes),
-//   emulatorOpen: state.ui.emulatorOpen,
-//   debuggerEvent: state.flows.debuggerEvent,
-//   zoomLevel: state.ui.zoomLevel,
-//   skills: state.skills.installed
-// })
-
-// const mapDispatchToProps = {
-//   fetchFlows,
-//   switchFlowNode,
-//   openFlowNodeProps,
-//   closeFlowNodeProps,
-//   setDiagramAction,
-//   createFlowNode,
-//   removeFlowNode,
-//   createFlow,
-//   updateFlowNode,
-//   switchFlow,
-//   updateFlow,
-//   copyFlowNodes,
-//   pasteFlowNode,
-//   refreshFlowsLinks,
-//   insertNewSkillNode,
-//   updateFlowProblems,
-//   zoomToLevel,
-//   buildSkill: buildNewSkill
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Explorer)
-// export default Explorer
+export default connect(mapStateToProps, mapDispatchToProps)(SidePanelContent)
