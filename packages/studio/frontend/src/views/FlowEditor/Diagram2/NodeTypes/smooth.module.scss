@@ -168,7 +168,7 @@
     // background-color: rgba(bp.$cobalt5, 0.2);
     @include block-shadow-smooth(2px, 1px, bp.$gray4);
 
-    -webkit-mask: linear-gradient(-60deg, #000 30%, #0005, #000 70%) right/300% 100%;
+    --webkit-mask: linear-gradient(-60deg, #000 30%, #0005, #000 70%) right/300% 100%;
     background-repeat: no-repeat;
     animation: shimmer 2.5s infinite;
 
