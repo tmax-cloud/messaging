@@ -1,4 +1,4 @@
-@use '~/src/scss/abstracts/index.module' as abstracts;
+@use '~/src/scss/abstracts/index.module' as *;
 @use '~/src/scss/base/index.module' as base;
 @use '~/src/scss/vendor/index.module' as bp;
 
@@ -95,7 +95,7 @@
   box-shadow: -1px 2px 1px 0px rgba(bp.$gray4, 0.5) inset, 0px 0px 1px 0px rgba(bp.$gray5, 1);
 
   h2 {
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
+    @include block-shadow-smooth(2px, 1px, bp.$gray5);
 
     cursor: pointer;
     margin: 0;
@@ -134,7 +134,7 @@
   background-color: white;
   overflow: hidden;
 
-  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
+  @include block-shadow-smooth(2px, 1px, bp.$gray5);
 
   &:hover {
     background-color: white;
@@ -146,27 +146,27 @@
   &-prompt {
     @extend .block;
     // background-color: rgba(bp.$rose5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$orange4);
+    @include block-shadow-smooth(2px, 1px, bp.$orange4);
   }
 
   &-simple {
     @extend .block;
 
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$green4);
+    @include block-shadow-smooth(2px, 1px, bp.$green4);
   }
 
   &-code {
     @extend .block;
 
     // background-color: rgba(bp.$cobalt5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt4);
+    @include block-shadow-smooth(2px, 1px, bp.$cobalt4);
   }
 
   &-complex {
     @extend .block;
 
     // background-color: rgba(bp.$indigo5, 0.2);
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$indigo4);
+    @include block-shadow-smooth(2px, 1px, bp.$indigo4);
   }
 }
 
@@ -198,8 +198,8 @@
 
   @extend %font-md, %text-normal;
 
-  // @include abstracts.block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
-  @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
+  // @include block-shadow(2px, 1px, bp.$gray3, bp.$gray4);
+  @include block-shadow-smooth(2px, 1px, bp.$gray5);
 
   &:hover {
     transition: all 75ms linear;

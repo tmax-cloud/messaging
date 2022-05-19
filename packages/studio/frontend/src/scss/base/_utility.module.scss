@@ -12,15 +12,21 @@
     @extend %flex;
     flex-direction: row;
   }
+
+  &-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-grow {
+    flex-grow: 1;
+  }
 }
 
 %w-full,
 .w-full {
   width: 100%;
-}
-
-%flex-grow {
-  flex-grow: 1;
 }
 
 %transition {
