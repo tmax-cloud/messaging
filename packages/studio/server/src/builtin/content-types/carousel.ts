@@ -21,7 +21,7 @@ const contentType: ContentType = {
       ...base.typingIndicators
     }
   },
-  computePreviewText: (formData) => formData.items && `Carousel: (${formData.items.length}) ${formData.items[0].title}`,
+  computePreviewText: (formData) => formData.items && formData.items[0].title,
   renderElement: (data) => utils.extractPayload('carousel', data)
 }
 

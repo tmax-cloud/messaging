@@ -51,8 +51,8 @@ const RoutesRouter = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/" component={AuthenticatedLayout} />
         <Route exact path="/flows/:flow*" component={FlowEditor} />
+        <Route path="/" component={AuthenticatedLayout} />
       </Switch>
     </Router>
   )

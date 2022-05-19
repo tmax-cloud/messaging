@@ -43,7 +43,7 @@ const contentType: ContentType = {
 
     if (utils.isUrl(link)) {
       const fileName = utils.extractFileName(formData.image)
-      return `Image: [![${formData.title || ''}](<${link}>)](<${link}>) - (${fileName}) ${title}`
+      return `File: [![${formData.title || ''}](<${link}>)](<${link}>) - (${fileName}) ${title}`
     } else {
       return `Expression: ${link}${title}`
     }

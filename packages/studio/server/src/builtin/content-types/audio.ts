@@ -43,7 +43,7 @@ const contentType: ContentType = {
 
     if (utils.isUrl(link)) {
       const fileName = utils.extractFileName(formData.audio)
-      return `Audio: (${fileName}) ${title}`
+      return `File: (${fileName}) ${title}`
     } else {
       return `Expression: ${link}${title}`
     }

@@ -13,11 +13,4 @@
   border: 1px solid $gray4;
   border-radius: 8px;
   padding: 8px;
-
-  :first-child {
-    margin-top: 0;
-  }
-  :last-child {
-    margin-bottom: 0;
-  }
 }

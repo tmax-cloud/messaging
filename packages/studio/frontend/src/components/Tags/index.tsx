@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import * as style from './style.module.scss'
 
 export interface OwnProps {
-  icon: string
+  type: string
   label?: boolean
 }
 
@@ -33,38 +33,34 @@ const Carousel = () => (
 
 export const TagGroups = {
   simple: [
-    { type: 'text', icon: <Icon icon="chat" color="#fff" size={12} /> },
-    { type: 'audio', icon: <Icon icon="volume-up" color="#fff" size={12} /> },
-    { type: 'image', icon: <Icon icon="media" color="#fff" size={12} /> },
-    { type: 'video', icon: <Icon icon="video" color="#fff" size={12} /> },
-    { type: 'location', icon: <Icon icon="map-marker" color="#fff" size={12} /> },
-    { type: 'file', icon: <Icon icon="document" color="#fff" size={12} /> }
+    { type: 'builtin_text', icon: <Icon icon="chat" color="#fff" size={12} /> },
+    { type: 'builtin_audio', icon: <Icon icon="volume-up" color="#fff" size={12} /> },
+    { type: 'builtin_image', icon: <Icon icon="media" color="#fff" size={12} /> },
+    { type: 'builtin_video', icon: <Icon icon="video" color="#fff" size={12} /> },
+    { type: 'builtin_location', icon: <Icon icon="map-marker" color="#fff" size={12} /> },
+    { type: 'builtin_file', icon: <Icon icon="document" color="#fff" size={12} /> }
   ],
   complex: [
-    { type: 'card', icon: <Card /> },
-    { type: 'carousel', icon: <Carousel /> }
+    { type: 'builtin_card', icon: <Card /> },
+    { type: 'builtin_carousel', icon: <Carousel /> }
   ],
   prompt: [
-    { type: 'actionbuttons', icon: <Icon icon="stadium-geometry" color="#fff" size={12} /> },
-    { type: 'say #!dropdown', icon: <Icon icon="th-list" color="#fff" size={12} /> },
-    { type: 'single choice', icon: <Icon icon="property" color="#fff" size={12} /> }
+    { type: 'builtin_actionbuttons', icon: <Icon icon="stadium-geometry" color="#fff" size={12} /> },
+    { type: 'dropdown', icon: <Icon icon="th-list" color="#fff" size={12} /> },
+    { type: 'builtin_single choice', icon: <Icon icon="property" color="#fff" size={12} /> }
   ],
-  code: [
-    { type: 'basic-skills/slot_reset', icon: <Icon icon="lightning" color="#fff" size={12} /> },
-    { type: 'builtin/removeVariable', icon: <Icon icon="lightning" color="#fff" size={12} /> },
-    { type: 'builtin/setVariable', icon: <Icon icon="lightning" color="#fff" size={12} /> }
-  ]
+  code: [{ type: 'code', icon: <Icon icon="lightning" color="#fff" size={12} /> }]
 }
 
-const Tags: FC<OwnProps> = ({ icon, label }) => {
+const Tags: FC<OwnProps> = ({ type, label }) => {
   function GetTag() {
     let tag = null
     for (const [key, value] of Object.entries(TagGroups)) {
       value.find((o, i) => {
-        if (o.type === icon) {
+        if (o.type === type) {
           tag = (
             <div className={style[`tag-${key}`]} key={i}>
-              {o.icon} {label ? <span>{icon}</span> : null}
+              {o.icon} {label ? <span>{type}</span> : null}
             </div>
           )
         }
