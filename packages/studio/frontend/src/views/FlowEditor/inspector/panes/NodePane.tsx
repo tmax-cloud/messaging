@@ -22,7 +22,7 @@ const NodePane: FC<OwnProps> = ({ currentNode }) => {
             <Text value={'just a regular standard normal node.'} />
           </div>
 
-          <BlockList id="onEnter" label="On Enter" value={onEnter} />
+          <BlockList id="onEnter" label="On Enter" value={onEnter || []} />
           <BlockList id="onReceive" label="On Receive" value={onReceive || []} />
         </Collapse>
         <Collapse idx={1} label="Transitions">

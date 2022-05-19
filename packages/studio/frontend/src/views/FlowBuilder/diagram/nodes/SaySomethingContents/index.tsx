@@ -32,6 +32,7 @@ const SayNodeContent: FC<Props> = (props) => {
     contentLang,
     defaultLanguage
   )
+  console.log(text, variations, contentType, markdown, items)
   const variationsCount = variations?.filter(Boolean)?.length
   useEffect(() => {
     if (!props.categories?.length) {

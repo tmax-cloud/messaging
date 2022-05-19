@@ -23,7 +23,7 @@ import useDiagramStore from './store'
 interface OwnProps {}
 
 const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode, switchFlowNode }) => {
-  const [lastFlow, setLastFlow] = useState('')
+  const [lastFlow, setLastFlow] = useState(currentFlow)
   const reactFlow = useReactFlow()
   const [nodes, edges, flowName, updateNodes, updateEdges, addEdge, setFlow] = useDiagramStore(
     (state) => [
@@ -41,9 +41,8 @@ const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode, switchF
   const handleNodeSelect = useCallback(
     (e, { id, width, height, position: { x, y } }: Node<any>) => {
       switchFlowNode(id)
-      setTimeout(
-        () => reactFlow.setCenter(x + Math.abs(width / 2), y + Math.abs(height / 2), { zoom: 1.2, duration: 350 }),
-        0
+      requestAnimationFrame(() =>
+        reactFlow.setCenter(x + Math.abs(width / 2), y + Math.abs(height / 2), { zoom: 1.2, duration: 350 })
       )
     },
     [switchFlowNode, reactFlow]
@@ -52,7 +51,7 @@ const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode, switchF
   useEffect(() => {
     if (currentFlow) {
       setFlow(currentFlow.name, toRFlow(currentFlow))
-      setTimeout(() => reactFlow.fitView({ padding: 0.25, duration: 500 }), 0)
+      requestAnimationFrame(() => reactFlow.fitView({ padding: 0.25, duration: 500 }))
     }
   }, [currentFlow])
 
@@ -66,6 +65,7 @@ const Diagram2: FC<any> = ({ currentFlow, currentFlowNode, canPasteNode, switchF
       nodeTypes={NodeTypes}
       edgeTypes={CustomEdge}
       onNodeDoubleClick={handleNodeSelect}
+      zoomOnDoubleClick={false}
       maxZoom={4}
       // we should pay for react-flow at least at the lowsest level to remove attribution, it's still MIT license but karma
       proOptions={{ account: 'paid-pro', hideAttribution: true }}

@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-import { Droppable, Draggable } from 'react-beautiful-dnd'
+import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd'
 
 import { Label, AddBtn, FormKitOnAction } from '../../../shared'
 import * as layout from '../../../shared/layout.module.scss'
-import Block from '../Block'
+import Block, { BLOCK_HEIGHT_PX } from '../Block'
 
 import * as style from './style.module.scss'
 
@@ -29,7 +29,12 @@ export interface OwnProps {
 
 const getRenderItem = (blocks: any) => (provided: any, snapshot: any, rubric: any) => {
   return (
-    <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+    <div
+      // style={{ height: `${BLOCK_HEIGHT_PX}px` }}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      ref={provided.innerRef}
+    >
       <Block block={blocks[rubric.source.index]} onDoubleClick={console.log} grab />
     </div>
   )
@@ -39,23 +44,31 @@ const BlockList: FC<OwnProps> = ({ id, label, hint, value, disableable, disableT
   const renderItem = getRenderItem(value)
 
   return (
-    <div className={layout.formKitContainer}>
-      <div className={layout.labelSection}>
-        <Label className={layout.center} label={label} hint={hint} />
-        <AddBtn className={layout.rightBtn} />
+    <DragDropContext>
+      <div className={layout.formKitContainer}>
+        <div className={layout.labelSection}>
+          <Label className={layout.center} label={label} hint={hint} />
+          <AddBtn className={layout.rightBtn} />
+        </div>
+        <Droppable droppableId={id} renderClone={renderItem}>
+          {(provided: any, snapshot: any) => (
+            <div
+              className={style.container}
+              style={{ minHeight: `${BLOCK_HEIGHT_PX * value.length}px` }}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {value.map((block, idx) => (
+                <Draggable draggableId={block} index={idx} key={block}>
+                  {renderItem}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
-      <Droppable droppableId={id} renderClone={renderItem}>
-        {(provided: any, snapshot: any) => (
-          <div className={style.container} ref={provided.innerRef} {...provided.droppableProps}>
-            {value.map((block, idx) => (
-              <Draggable draggableId={block} index={idx} key={block}>
-                {renderItem}
-              </Draggable>
-            ))}
-          </div>
-        )}
-      </Droppable>
-    </div>
+    </DragDropContext>
   )
 }
 

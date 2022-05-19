@@ -1,6 +1,5 @@
 import { FlowNode } from '@botpress/sdk'
 import React, { useEffect, FC } from 'react'
-import { DragDropContext } from 'react-beautiful-dnd'
 import shallow from 'zustand/shallow'
 
 import TabBar from './layout/TabBar'
@@ -36,14 +35,12 @@ const Inspector: FC<OwnProps> = ({ currentFlowNode = {} }) => {
   }, [currentFlowNode])
 
   return (
-    <DragDropContext>
-      <div className={style.container}>
-        <TabBar contextNodeName={name} />
-        <div className={style.panes}>
-          {activeTabIdx === -1 ? renderPane(type as PaneTypes) : renderPane(PaneTypes.BLOCK)}
-        </div>
+    <div className={style.container}>
+      <TabBar contextNodeName={name} />
+      <div className={style.panes}>
+        {activeTabIdx === -1 ? renderPane(type as PaneTypes) : renderPane(PaneTypes.BLOCK)}
       </div>
-    </DragDropContext>
+    </div>
   )
 }
 

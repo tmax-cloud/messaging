@@ -4,7 +4,6 @@ import cx from 'classnames'
 import React, { FC } from 'react'
 import { Handle, Position, WrapNodeProps } from 'react-flow-renderer'
 
-import { metaFromAction } from '../../utils/convertBotData'
 import NodeBlock from './shared/NodeBlock'
 
 import * as style from './smooth.module.scss'
@@ -37,25 +36,25 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
       </div>
 
       <div className={style.nodeBody}>
-        {onEnter && (
+        {onEnter && onEnter.length ? (
           <>
             <h4>On Enter</h4>
             {/* <div className={style.content}> */}
             <div className={cx(style.blocks, 'nodrag')}>
               {onEnter.map((action, i) => (
-                <NodeBlock type={metaFromAction(action)} key={i} />
+                <NodeBlock action={action} key={i} />
               ))}
             </div>
             {/* </div> */}
           </>
-        )}
+        ) : null}
         {onReceive && (
           <>
             <h4>On Receive</h4>
             {/* <div className={style.content}> */}
             <div className={cx(style.blocks, 'nodrag')}>
               {onReceive.map((action, i) => (
-                <NodeBlock type={metaFromAction(action)} key={i} />
+                <NodeBlock action={action} key={i} />
               ))}
             </div>
             {/* </div> */}
@@ -65,12 +64,26 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
       <div className={style.footer}>
         <h4>Transitions</h4>
         <div className={style.transitions}>
-          {next.map(({ condition, caption, node }, idx) => (
-            <div className={cx(style.transition, 'nodrag')} key={idx}>
-              {condition} {caption} {node}
-              <Handle id={`out${idx}`} type="source" position={Position.Right} />
-            </div>
-          ))}
+          {
+            next.reduce(
+              (accu: any, { condition, caption, node }, idx) => {
+                const alwaysOrOtherwise = !accu.always ? 'always' : 'otherwise'
+
+                if (condition === 'true' && !accu.always) {
+                  accu.always = true
+                }
+
+                accu.list.push(
+                  <div className={cx(style.transition, 'nodrag')} key={`${condition}.${idx}`}>
+                    {caption ? caption : condition === 'true' ? alwaysOrOtherwise : condition}
+                    <Handle id={`out${idx}`} type="source" position={Position.Right} />
+                  </div>
+                )
+                return accu
+              },
+              { always: false, list: [] }
+            ).list
+          }
         </div>
       </div>
       {/* <Handle type="target" position={Position.Right} /> */}

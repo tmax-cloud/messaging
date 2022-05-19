@@ -58,7 +58,7 @@ class ActionItem extends Component<Props> {
     }
 
     const item = this.props.items[this.state.itemId]
-
+    console.log(item)
     const preview = item?.previews?.[this.props.contentLang]
     const className = classnames(style.name, {
       [style.missingTranslation]: preview?.startsWith('(missing translation) ')
