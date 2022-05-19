@@ -3,7 +3,7 @@ import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd'
 
 import { Label, AddBtn, FormKitOnAction } from '../../../shared'
 import * as layout from '../../../shared/layout.module.scss'
-import Block, { BLOCK_HEIGHT_PX } from '../Block'
+import Block from '../Block'
 
 import * as style from './style.module.scss'
 
@@ -34,6 +34,7 @@ const getRenderItem = (blocks: any) => (provided: any, snapshot: any, rubric: an
       {...provided.draggableProps}
       {...provided.dragHandleProps}
       ref={provided.innerRef}
+      className={style.draggable}
     >
       <Block block={blocks[rubric.source.index]} onDoubleClick={console.log} grab />
     </div>
@@ -54,7 +55,7 @@ const BlockList: FC<OwnProps> = ({ id, label, hint, value, disableable, disableT
           {(provided: any, snapshot: any) => (
             <div
               className={style.container}
-              style={{ minHeight: `${BLOCK_HEIGHT_PX * value.length}px` }}
+              // style={{ minHeight: `${BLOCK_HEIGHT_PX * value.length}px` }}
               ref={provided.innerRef}
               {...provided.droppableProps}
             >

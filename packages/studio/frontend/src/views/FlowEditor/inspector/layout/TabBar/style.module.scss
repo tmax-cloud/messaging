@@ -5,15 +5,18 @@
 @import '@blueprintjs/core/lib/scss/variables';
 
 .tabs {
-  @extend %shadow-edge-sm;
+  position: relative;
   width: 100%;
   height: 40px;
-  background: bp.$light-gray5;
+
   display: flex;
-  align-items: center;
-  border-radius: 8px 8px 0 0;
-  // padding: 1px;
-  // box-shadow: 0px 4px 0px $gray5;
+  align-items: flex-end;
+  border-radius: 8px 8px 2px 2px;
+
+  overflow: hidden;
+  gap: 4px;
+
+  box-shadow: 0px 2px 0px 0px $light-gray1, 0px 6px 2px 0px rgba($gray1, 0.1);
   // margin-bottom: 4px;
   z-index: 1;
 }
@@ -22,30 +25,56 @@
   display: flex;
   align-items: center;
   position: relative;
+  height: 100%;
+  padding: 4px;
+  padding-right: 6px;
+  background-color: $light-gray5;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid $light-gray2;
+  box-shadow: 4px 2px 0px $light-gray2;
+  z-index: 1;
 
   .tab {
     @extend %font-lg;
-    @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
-    color: #202b33;
+    // @include abstracts.block-shadow-smooth(2px, 1px, bp.$gray5);
+    color: $dark-gray2;
     margin: 0;
-    border-radius: 8px 0 0 0;
+    border-radius: 6px;
+    border-width: 2px;
+    height: 100%;
+
+    box-shadow: 0px -1px 0px 0px $light-gray1 inset;
+    border-color: $light-gray1;
+
+    &:active {
+      box-shadow: 0px 0px 1px $gray5, 0px 2px 0px 0px $gray5 inset;
+      border-color: $gray5;
+      border-width: 2px;
+      background-color: $light-gray5;
+      transform: translateY(1px);
+    }
+
+    &:hover {
+      color: $dark-gray5;
+    }
 
     &.active {
-      @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt4);
+      border-width: 2px;
+      // @include abstracts.block-shadow-smooth(2px, 1px, bp.$cobalt4);
     }
   }
 }
 
-.contextFade {
-  position: absolute;
-  z-index: 100;
-  left: 100%;
-  bottom: 0;
-  pointer-events: none;
-  background-image: linear-gradient(to left, rgba(bp.$light-gray5, 0), rgba(bp.$light-gray5, 1) 90%);
-  width: 0px;
-  height: 100%;
-}
+// .contextFade {
+//   // position: absolute;
+//   // z-index: 100;
+//   // left: 100%;
+//   // bottom: 0;
+//   // pointer-events: none;
+//   // background-image: linear-gradient(to left, rgba(bp.$light-gray5, 0), rgba(bp.$light-gray5, 1) 90%);
+//   // width: 0px;
+//   // height: 100%;
+// }
 
 .contextDiv {
   width: 1px;
@@ -60,15 +89,22 @@
   display: flex;
   flex-direction: row-reverse;
   column-gap: 4px;
-  overflow: auto;
-  // margin-left: auto;
-  padding: 2px;
-  padding-bottom: 4px;
-  height: 100%;
-  // padding-left: 8px;
-  z-index: 1;
-
   position: relative;
+  background-color: $light-gray5;
+
+  width: calc(100% + 4px);
+  align-items: flex-end;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  border-radius: 0px 8px 2px 0;
+  border: 1px solid $light-gray2;
+  border-bottom: 0;
+  border-left: 0;
+
+  padding: 6px 6px 0px 6px;
+
+  height: fit-content;
+  min-height: 32px;
 
   /* ===== Scrollbar CSS ===== */
   /* Firefox */
@@ -102,9 +138,9 @@
     height: 0px;
   }
   &::-webkit-scrollbar-thumb {
-    background: $gray3;
+    background: $gray1;
     border: 0px none #ffffff;
-    border-radius: 0px;
+    border-radius: 2px;
   }
   &::-webkit-scrollbar-thumb:hover {
     background: #424242;
@@ -113,15 +149,16 @@
     background: #3b3b3b;
   }
   &::-webkit-scrollbar-track {
-    background: $light-gray5;
+    background: $light-gray2;
     border: 0px none #ffffff;
-    border-radius: 0px;
+    overflow: hidden;
+    padding: 0px 2px;
   }
   &::-webkit-scrollbar-track:hover {
-    background: $light-gray4;
+    background: $light-gray1;
   }
   &::-webkit-scrollbar-track:active {
-    background: $light-gray3;
+    background: $gray5;
   }
   &::-webkit-scrollbar-corner {
     background: transparent;
@@ -131,6 +168,7 @@
 .tab {
   @extend %font-md, %text-medium, %transition-all-75;
   color: $gray1;
+  background-color: $white;
 
   padding: 2px 6px;
   cursor: pointer;
@@ -138,34 +176,47 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
-  min-height: min-content;
+  // height: 32px;
   min-width: min-content;
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
   align-items: center;
-  border: 1px solid $gray5;
-  transform: translateY(-1px);
+  border: 1px solid $light-gray1;
+  border-bottom: 0;
 
-  box-shadow: 0px 1px 0px $gray5, 0px -1px 0px 0px $gray5 inset, 0px 1px 1px 0px mix(black, $gray5, 60%);
+  // outline-offset: 0;
+
+  // transform: translateY(-1px);
+
+  box-shadow: 0px 0px 0px $gray5, 0px -1px 0px 0px $gray5 inset;
 
   -webkit-user-select: none; /* Safari */
   user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
 
   &:active {
-    box-shadow: 0px 0px 0px $gray3, 0px -1px 0px 0px $gray3 inset, 0px 1px 1px 0px mix(black, $gray5, 60%);
-    transform: translateY(0px);
+    box-shadow: 0px 0px 0px $gray5, 0px 0px 0px 0px $gray5 inset;
+    background-color: $light-gray1;
+    transform: translateY(1px);
+  }
+
+  &:hover {
+    background-color: white;
+    color: $gray2;
   }
 
   &.active {
     &:active {
-      box-shadow: 0px 0px 0px $cobalt3, 0px -1px 0px 0px $cobalt3 inset, 0px 0px 1px 0px mix(black, $cobalt3, 60%);
-      transform: translateY(0px);
+      box-shadow: 0px 0px 0px $cobalt4, 0px -2px 0px 0px $cobalt4 inset;
+      transform: translateY(1px);
+      // border-width: 2px;
     }
 
     border: 1px solid $cobalt4;
-    box-shadow: 0px 1px 0px $cobalt4, 0px -1px 0px 0px $cobalt4 inset, 0px 1px 1px 0px mix(black, $cobalt4, 60%);
+    border-bottom: 0;
+    box-shadow: 0px 2px 0px $cobalt4, 0px -2px 0px 0px $cobalt4 inset;
     color: $cobalt4;
     background-color: #ffffff;
+    transform: translateY(-1px);
   }
 
   span {

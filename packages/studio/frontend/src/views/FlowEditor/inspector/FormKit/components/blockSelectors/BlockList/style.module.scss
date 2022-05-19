@@ -7,15 +7,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  // align-items: center;
-  // border: 1px solid $gray4;
+
   border-radius: 8px;
-  // gap: 8px;
   min-height: 38px;
   padding: 4px;
-  padding-bottom: 0;
-  // row-gap: 6px;
+  // padding-bottom: 0;
+  row-gap: 4px;
   background-color: bp.$light-gray4;
   @extend %shadow-inner-2;
 }
@@ -28,4 +25,8 @@
   top: 0;
   width: 100%;
   padding: 8px;
+}
+
+.draggable {
+  height: 36px;
 }
