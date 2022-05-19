@@ -1,22 +1,24 @@
 // @import '../../../palette.scss';
 @use '~/src/scss/abstracts/index.module' as abstracts;
 @use '~/src/scss/base/index.module' as base;
-@use '~/src/scss/vendor/index.module' as bp;
+@use '~/src/scss/vendor/index.module' as *;
 
 .container {
-  @extend %flex-column, %shadow-edge-md;
-  // row-gap: 6px;
+  @extend %flex-column;
+  row-gap: 2px;
   z-index: 50;
   width: 350px;
   min-height: 100px;
   align-self: flex-end;
   border-radius: 8px;
+  box-shadow: 0px 4px 0px $light-gray2, 1px 4px 0px $light-gray2, -1px 4px 0px $light-gray2;
 }
 
 .panes {
-  // @extend %shadow-edge-md;
-  background-color: white;
+  @extend %shadow-edge-md;
+  background-color: $white;
   border-radius: 0 0 8px 8px;
+  border: 1px solid $light-gray2;
 }
 
 .duoContainer {
