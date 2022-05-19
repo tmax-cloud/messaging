@@ -6,7 +6,7 @@ import * as style from './style.module.scss'
 
 interface OwnProps {}
 
-const NavEl = ({ icon, key }) => {
+const NavEl = ({ icon }) => {
   const [isHover, setIsHover] = useState(false)
 
   const handleHover = () => {
@@ -15,7 +15,7 @@ const NavEl = ({ icon, key }) => {
 
   return (
     <div className={style.navEl}>
-      <Icon icon={icon} onMouseOver={() => handleHover()} color="" key={key} />
+      <Icon icon={icon} onMouseOver={() => handleHover()} color="" />
     </div>
   )
 }

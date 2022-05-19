@@ -21,7 +21,7 @@ import '~/src/scss/style.scss'
 import Diagram2 from './Diagram2'
 import Explorer from './explorer'
 import Inspector from './inspector'
-import { Navbar } from './tmp'
+import { Navbar, Toolbar } from './tmp'
 import * as tmp from './tmp/tmp.module.scss'
 
 interface OwnProps {
@@ -58,9 +58,7 @@ const FlowEditor = (props: Props) => {
           <Navbar />
         </div>
         <div className={tmp.toolbar}>
-          <span>asdfs</span>
-          <span>Name</span>
-          <span>Train Chatbot</span>
+          <Toolbar />
         </div>
       </div>
     </div>

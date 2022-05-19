@@ -20,7 +20,7 @@ const Collapse: FC<OwnProps> = ({ idx, label, children }) => {
 
   return (
     <>
-      <div onClick={(e) => setActiveCollapse(idx)} className={style.form}>
+      <div onClick={(e) => setActiveCollapse(idx)} className={isActive ? style.form : style.form__active}>
         {isActive ? <Icon icon="chevron-up" size={20} /> : <Icon icon="chevron-down" size={20} />} {label}
       </div>
       <BpCollapse isOpen={isActive} keepChildrenMounted>

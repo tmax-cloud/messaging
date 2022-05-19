@@ -6,11 +6,11 @@
   @extend %font-md, %text-medium;
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 8px 12px;
 
   text-align: left;
   color: bp.$dark-gray2;
-  border-radius: 8px;
+  // border-radius: 8px;
 
   cursor: pointer;
   -webkit-user-select: none; /* Safari */
@@ -26,6 +26,18 @@
   }
   span {
     padding-right: 16px;
+  }
+
+  // &:is(:first-child) {
+  //   border-radius: 8px 8px 0 0;
+  // }
+
+  &__active {
+    @extend .form;
+
+    &:is(:nth-last-child(2)) {
+      border-radius: 0 0 8px 8px;
+    }
   }
 }
 

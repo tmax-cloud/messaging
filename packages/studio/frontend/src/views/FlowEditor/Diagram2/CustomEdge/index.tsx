@@ -57,14 +57,14 @@ const CustomEdge: FC<EdgeProps> = ({
         height={foreignObjectSize}
         x={edgeCenterX - foreignObjectSize / 2}
         y={edgeCenterY - foreignObjectSize / 2}
-        className={style['edgebutton-foreignobject']}
+        className={style.edgebuttonForeignobject}
         requiredExtensions="http://www.w3.org/1999/xhtml"
       >
-        <body>
+        <div>
           <button className={style.edgebutton} onClick={(event) => onEdgeClick(event, id)}>
             ×
           </button>
-        </body>
+        </div>
       </foreignObject>
     </>
   )

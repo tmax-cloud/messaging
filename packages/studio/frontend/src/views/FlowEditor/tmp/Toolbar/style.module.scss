@@ -1,4 +1,50 @@
+@use '~/src/scss/vendor/index.module' as *;
+@use '~/src/scss/abstracts/index.module' as *;
+@use '~/src/scss/base/index.module' as base;
+
 .container {
-  color: black;
-  width: 100px;
+  @extend %flex-row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  background-color: $dark-gray1;
+  padding: 2px 12px;
+  column-gap: 16px;
+}
+
+.section {
+  @extend %flex-row;
+  column-gap: 16px;
+
+  .version {
+    @extend %font-sm;
+    color: $gray1;
+  }
+  .name {
+    @extend %font-sm;
+    color: $light-gray1;
+  }
+}
+
+.train {
+  @include block-shadow-smooth(2px, 1px, $cobalt3);
+  @extend %font-sm, %text-medium;
+
+  // border-width: 0px;
+  border-radius: 4px;
+  user-select: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: 2px solid $cobalt5;
+    outline-offset: 1px;
+  }
+
+  &:active {
+    box-shadow: 0px 1px 0px $cobalt4;
+
+    transform: translateY(0px);
+    border-color: $cobalt4;
+  }
 }

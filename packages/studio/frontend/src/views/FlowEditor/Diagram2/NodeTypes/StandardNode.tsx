@@ -66,7 +66,7 @@ const StandardNode: FC<OwnProps> = ({ selected, dragging, data: { name, onEnter,
         <h4>Transitions</h4>
         <div className={style.transitions}>
           {next.map(({ condition, caption, node }, idx) => (
-            <div className={cx(style.transition, 'nodrag')}>
+            <div className={cx(style.transition, 'nodrag')} key={idx}>
               {condition} {caption} {node}
               <Handle id={`out${idx}`} type="source" position={Position.Right} />
             </div>
