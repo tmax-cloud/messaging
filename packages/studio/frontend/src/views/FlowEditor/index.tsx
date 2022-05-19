@@ -17,9 +17,11 @@ import {
 } from '~/src/actions'
 import { RootReducer, getCurrentFlowNode } from '~/src/reducers'
 
+import '~/src/scss/style.scss'
 import Diagram2 from './Diagram2'
 import Explorer from './explorer'
 import Inspector from './inspector'
+import { Navbar } from './tmp'
 import * as tmp from './tmp/tmp.module.scss'
 
 interface OwnProps {
@@ -38,7 +40,7 @@ const FlowEditor = (props: Props) => {
   }, [])
 
   return (
-    <div className={cx(tmp.main)}>
+    <div className={cx(tmp.main)} data-theme="theme-light">
       <div className={tmp.view}>
         <div className={tmp.diagram}>
           <ReactFlowProvider>
@@ -52,7 +54,9 @@ const FlowEditor = (props: Props) => {
         </div>
       </div>
       <div className={tmp.layout}>
-        <div className={tmp.nav}></div>
+        <div className={tmp.nav}>
+          <Navbar />
+        </div>
         <div className={tmp.toolbar}>
           <span>asdfs</span>
           <span>Name</span>
