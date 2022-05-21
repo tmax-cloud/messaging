@@ -12,7 +12,9 @@ const Toolbar: FC<OwnProps> = ({}) => {
         <span className={style.name}>Name</span>
       </div>
       <div className={style.section}>
+        <button className={style.train}>Deploy to Cloud</button>
         <button className={style.train}>Train Chatbot</button>
+        <button className={style.train}>Emulator</button>
       </div>
     </div>
   )

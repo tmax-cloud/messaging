@@ -35,7 +35,7 @@ const Block: FC<OwnProps> = forwardRef(
     const handleClicks = useCallback(
       (e) => {
         if (e.detail === 2) {
-          onDoubleClick()
+          openTabId(block)
         }
       },
       [onDoubleClick]
@@ -51,12 +51,9 @@ const Block: FC<OwnProps> = forwardRef(
     }, [block, setActionId])
 
     return (
-      <div ref={ref as any} className={cx(style.container, className)} onClick={() => openTabId(block)}>
+      <div ref={ref as any} className={cx(style.container, className)} onClick={handleClicks}>
         {/* {grab && <Grabber className={cx({ [style.hidden]: dragging })} />} */}
-        <div
-          className={cx(style.block, { [style.temp]: temp, [style.grab]: grab, [style.dragging]: dragging })}
-          onClick={handleClicks}
-        >
+        <div className={cx(style.block, { [style.temp]: temp, [style.grab]: grab, [style.dragging]: dragging })}>
           <Tags type={!block.startsWith('say') ? 'code' : items[actionId]?.contentType} />
           {/* <Text className={style.type} value={block.type} large /> */}
           <Text

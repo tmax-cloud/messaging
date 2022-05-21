@@ -11,22 +11,15 @@
   border-radius: 8px;
   min-height: 38px;
   padding: 4px;
-  // padding-bottom: 0;
-  row-gap: 4px;
+  padding-bottom: 0;
   background-color: bp.$light-gray4;
   @extend %shadow-inner-2;
 }
 
-.customDragLayer {
-  position: absolute;
-  pointer-events: none;
-  z-index: 100;
-  left: 0;
-  top: 0;
-  width: 100%;
-  padding: 8px;
+.draggable {
+  // height: 36px;
 }
 
-.draggable {
-  height: 36px;
+.loading {
+  margin: 20px;
 }
