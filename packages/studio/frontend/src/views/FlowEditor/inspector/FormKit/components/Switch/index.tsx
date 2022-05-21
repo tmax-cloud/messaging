@@ -1,23 +1,27 @@
 import { Switch as BpSwitch } from '@blueprintjs/core'
-import React, { useEffect, useState, useMemo, FC } from 'react'
-import { SuperInput, SiTypes } from '~/src/components/SuperInput'
+import { useField } from 'formik'
+import React, { useState, useMemo, FC, useEffect } from 'react'
 import { Label, DynamicBtn } from '../../shared'
 import * as layout from '../../shared/layout.module.scss'
 
 export interface OwnProps {
-  id: string
+  id?: string
   label: string
   hint?: string
-  value: string
+  // value: string
   onChange?: any
+  name: string
 }
 
-const Switch: FC<OwnProps> = ({ id, label, hint, value, onChange }) => {
-  const [isDynamic, setIsDynamic] = useState(true)
+const Switch: FC<OwnProps> = ({ label, ...props }) => {
+  const [isDynamic, setIsDynamic] = useState(false)
+
+  const [field, meta, helpers] = useField({ ...props, type: 'checkbox' })
+  // const [siField, siMta] = useField(props)
 
   const _isBool = (token: string) => {
     try {
-      const parseToken = JSON.parse(value)
+      const parseToken = JSON.parse(field.value)
       if (typeof parseToken === 'boolean') {
         return parseToken
       }
@@ -25,7 +29,7 @@ const Switch: FC<OwnProps> = ({ id, label, hint, value, onChange }) => {
     return null
   }
 
-  const valueBool = useMemo(() => _isBool(value), [value])
+  const valueBool = useMemo(() => _isBool(field.value), [field.value])
 
   useEffect(() => {
     if (valueBool === null) {
@@ -39,26 +43,26 @@ const Switch: FC<OwnProps> = ({ id, label, hint, value, onChange }) => {
         {!isDynamic && (
           <BpSwitch
             className={layout.leftBtn}
-            checked={valueBool}
+            {...field}
+            // name={props.name}
             disabled={valueBool === null}
             large
-            onChange={(event) => {
-              onChange(id, (event.target as HTMLInputElement).checked ? 'true' : 'false')
-            }}
           />
         )}
-        <Label className={layout.center} label={label} hint={hint} />
+        <Label className={layout.center} label={label} hint={props.hint} />
         <DynamicBtn className={layout.rightBtn} active={isDynamic} onClick={() => setIsDynamic(!isDynamic)} />
       </div>
-      {isDynamic && (
+      {/* {isDynamic && (
         <SuperInput
           type={SiTypes.BOOL}
-          value={value}
-          onChange={(change) => {
-            onChange(id, change)
-          }}
+          // value={field.value}
+          // {...field}
+          // {...props}
+          // onChange={(change) => {
+          //   props.onChange(props.id, change)
+          // }}
         />
-      )}
+      )} */}
     </div>
   )
 }
