@@ -5,7 +5,7 @@
 
 .container {
   @extend %flex-column;
-  row-gap: 2px;
+  // row-gap: 2px;
   z-index: 50;
   width: 350px;
   min-height: 100px;
@@ -19,6 +19,7 @@
   background-color: $white;
   border-radius: 0 0 8px 8px;
   border: 1px solid $light-gray2;
+  border-top: 0;
 }
 
 .duoContainer {
