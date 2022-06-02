@@ -21,16 +21,14 @@ import Config from '../../views/Config'
 import Content from '../../views/Content'
 import FlowBuilder from '../../views/FlowBuilder'
 import FlowEditor from '../../views/FlowEditor'
-import Module from '../../views/Module'
 import NLU from '../../views/Nlu'
 import QNA from '../../views/Qna'
-import storage from '../Shared/lite-utils/storage'
 import { lang } from '../Shared/translations'
 import { isInputFocused } from '../Shared/utilities/inputs'
+import storage from '../Shared/Utils/storage'
 import BottomPanel from './BottomPanel'
 import BotUmountedWarning from './BotUnmountedWarning'
 import CommandPalette from './CommandPalette'
-import GuidedTour from './GuidedTour'
 import * as layout from './Layout.module.scss'
 import LanguageServerHealth from './NLUServerHealthWarning'
 import Sidebar from './Sidebar'
@@ -60,7 +58,6 @@ const bottomPanelMinSize = 100
 const Layout: FC<Props> = (props: Props) => {
   const mainElRef = useRef(null)
   const [langSwitcherOpen, setLangSwitcherOpen] = useState(false)
-  const [guidedTourOpen, setGuidedTourOpen] = useState(false)
 
   useEffect(() => {
     const viewMode = props.location.query && props.location.query.viewMode
@@ -114,17 +111,6 @@ const Layout: FC<Props> = (props: Props) => {
 
   const toggleEmulator = () => {
     window.botpressWebChat.sendEvent({ type: 'toggle' })
-  }
-
-  const toggleGuidedTour = () => {
-    setGuidedTourOpen(!guidedTourOpen)
-  }
-
-  const focusEmulator = (e) => {
-    if (!isInputFocused() || e.ctrlKey) {
-      e.preventDefault()
-      window.botpressWebChat.sendEvent({ type: 'show' })
-    }
   }
 
   const closeEmulator = (e) => {
@@ -233,8 +219,6 @@ const Layout: FC<Props> = (props: Props) => {
                 <Route exact path="/nlu" component={NLU} />
                 <Route exact path="/qna" component={QNA} />
                 <Route exact path="/code-editor" component={CodeEditor} />
-
-                <Route exact path="/modules/:moduleName/:componentName?" render={(props) => <Module {...props} />} />
               </Switch>
             </main>
             <BottomPanel />
@@ -242,7 +226,6 @@ const Layout: FC<Props> = (props: Props) => {
 
           <PluginInjectionSite site="overlay" />
           <SelectContentManager />
-          <GuidedTour isDisplayed={guidedTourOpen} onToggle={toggleGuidedTour} />
           <LanguageServerHealth />
         </div>
       </HotKeys>
@@ -250,7 +233,6 @@ const Layout: FC<Props> = (props: Props) => {
         onToggleEmulator={toggleEmulator}
         langSwitcherOpen={langSwitcherOpen}
         toggleLangSwitcher={toggleLangSwitcher}
-        onToggleGuidedTour={toggleGuidedTour}
         toggleBottomPanel={props.toggleBottomPanel}
       />
       <CommandPalette toggleEmulator={toggleEmulator} />

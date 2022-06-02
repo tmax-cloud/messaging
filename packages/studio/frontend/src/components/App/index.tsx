@@ -45,22 +45,8 @@ class App extends Component<Props> {
   }
 
   componentDidMount() {
-    const appName = window.APP_NAME || 'Botpress Studio'
     const botName = window.BOT_ID ? ` – ${window.BOT_ID}` : ''
-    window.document.title = `${appName}${botName}`
-
-    if (window.APP_FAVICON) {
-      const link = document.querySelector('link[rel="icon"]')
-      link.setAttribute('href', window.APP_FAVICON)
-    }
-
-    if (window.APP_CUSTOM_CSS) {
-      const sheet = document.createElement('link')
-      sheet.rel = 'stylesheet'
-      sheet.href = window.APP_CUSTOM_CSS
-      sheet.type = 'text/css'
-      document.head.appendChild(sheet)
-    }
+    window.document.title = `Botpress Studio | ${botName}`
 
     EventBus.default.setup()
 

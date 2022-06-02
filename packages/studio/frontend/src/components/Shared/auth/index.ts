@@ -3,8 +3,7 @@ import { AxiosInstance } from 'axios'
 import moment from 'moment'
 import ms from 'ms'
 import { nanoid } from 'nanoid'
-
-import storage from '../lite-utils/storage'
+import storage from '../Utils/storage'
 
 export const TOKEN_KEY = 'bp/token'
 

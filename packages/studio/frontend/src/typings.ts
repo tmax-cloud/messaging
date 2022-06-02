@@ -1,4 +1,4 @@
-import { BPStorage } from './components/Shared/lite-utils/typings'
+import { BPStorage } from './components/Shared/Utils/typings'
 
 declare global {
   interface Window {
@@ -12,9 +12,6 @@ declare global {
       configure: (config: any) => void
       sendPayload: (payload: any) => void
     }
-    APP_NAME: string
-    APP_FAVICON: string
-    APP_CUSTOM_CSS: string
     BOT_API_PATH: string
     API_PATH: string
     SEGMENT_WRITE_KEY: string
@@ -25,14 +22,12 @@ declare global {
     SEND_USAGE_STATS: boolean
     IS_STANDALONE: boolean
     IS_BOT_MOUNTED: boolean
-    BOT_LOCKED: boolean
     SOCKET_TRANSPORTS: string[]
     /** When the studio runs as a standalone, this is the URL of the runtime  */
     BP_SERVER_URL: string
     ANALYTICS_ID: string
     UUID: string
     BP_STORAGE: BPStorage
-    USE_SESSION_STORAGE: boolean
     NLU_ENDPOINT: string
     botpress: {
       [moduleName: string]: any

@@ -13,6 +13,7 @@ import _ from 'lodash'
 import React, { Component, Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import storage from '~/src/components/Shared/Utils/storage'
 
 import {
   buildNewSkill,
@@ -35,7 +36,6 @@ import {
   zoomToLevel
 } from '../../../actions'
 import contextMenu from '../../../components/Shared/ContextMenu'
-import storage from '../../../components/Shared/lite-utils/storage'
 import MainLayout from '../../../components/Shared/MainLayout'
 import ShortcutLabel from '../../../components/Shared/ShortcutLabel'
 import * as sharedStyle from '../../../components/Shared/style.module.scss'

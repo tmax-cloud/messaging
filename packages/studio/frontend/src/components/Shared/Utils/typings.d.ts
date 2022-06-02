@@ -16,6 +16,12 @@ declare module 'botpress/utils' {
   export function getFlowLabel(flowName: string): string
 }
 
+export interface BPStorage {
+  set: <T>(key: string, value: T) => void
+  get: <T = string>(key: string) => T | undefined
+  del: (key: string) => void
+}
+
 export interface DownloaderProps {
   /** When the URL is set, the backend is called and the download is started. */
   url: string

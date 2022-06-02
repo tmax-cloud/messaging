@@ -1,26 +1,17 @@
 import Cookie from 'js-cookie'
 import { BPStorage } from './typings'
 
-let useSessionStorage = new Boolean(window.USE_SESSION_STORAGE)
-let storageDriver: 'cookie' | Storage
-const getDriver = (): 'cookie' | Storage => {
-  if (storageDriver && window.USE_SESSION_STORAGE === useSessionStorage) {
-    return storageDriver
-  }
+type StorageDriver = 'cookie' | Storage
 
+const getDriver = (): StorageDriver => {
   try {
-    useSessionStorage = new Boolean(window.USE_SESSION_STORAGE)
-
-    const storage =
-      window.USE_SESSION_STORAGE === true && typeof sessionStorage !== 'undefined' ? sessionStorage : localStorage
-
     const tempKey = '__storage_test__'
-    storage.setItem(tempKey, tempKey)
-    storage.removeItem(tempKey)
+    localStorage.setItem(tempKey, tempKey)
+    localStorage.removeItem(tempKey)
 
-    return (storageDriver = storage)
+    return localStorage
   } catch (e) {
-    return (storageDriver = 'cookie')
+    return 'cookie'
   }
 }
 
