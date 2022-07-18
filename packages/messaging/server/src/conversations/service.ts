@@ -53,8 +53,10 @@ export class ConversationService extends Service {
   }
 
   public async create(clientId: uuid, userId: uuid): Promise<Conversation> {
+    const defaultName = "hacon"
     const conversation = {
       id: uuidv4(),
+      name: string | defaultName
       userId,
       clientId,
       createdOn: new Date()
@@ -120,6 +122,7 @@ export class ConversationService extends Service {
     return rows.map((x) =>
       this.deserialize({
         id: x.id,
+        name: x.name,
         clientId: x.clientId,
         userId: x.userId,
         createdOn: x.createdOn
