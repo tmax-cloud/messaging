@@ -56,7 +56,7 @@ export class ConversationService extends Service {
     const defaultName = "hacon"
     const conversation = {
       id: uuidv4(),
-      name: string | defaultName
+      name: string | defaultName,
       userId,
       clientId,
       createdOn: new Date()
