@@ -18,6 +18,7 @@ export const Schemas = {
     .object({
       userId: joi.string().uuid().required(),
       conversationId: joi.string().uuid().required(),
+      name: joi.string().required(),
       channel: joi.string().required()
     })
     .required()
