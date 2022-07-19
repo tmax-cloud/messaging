@@ -15,6 +15,7 @@ export interface UserEvent {
 export interface ConversationEvent extends UserEvent {
   /** Id of the conversation related to this event */
   conversationId: uuid
+  name: string
 }
 
 /**
